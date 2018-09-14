@@ -1,0 +1,47 @@
+{
+  "name": "Sala",
+  "plural": "salas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "localizacao": {
+      "type": "geopoint",
+      "required": true
+    },
+    "capacidade": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "tipo": {
+      "type": "string",
+      "required": true,
+      "default": "normal"
+    },
+    "restrita": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "bloco": {
+      "type": "belongsTo",
+      "model": "Bloco",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "*"
+    }
+  ],
+  "methods": {}
+}
