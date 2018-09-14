@@ -1,7 +1,7 @@
 # Models Descriptions
 
 ## Sala
-- Públic: `False`
+- Public: `False`
 - Attributes
   * localizacao : **geopoint** `Required`
   * capacidade : **number** `Required`, default=`0`
@@ -13,7 +13,7 @@
   * Belongs to : **Bloco**
 
 ## Bloco
-- Públic: `True`
+- Public: `True`
 - Attributes
   * localizacao : **geopoint** `Required`
   * tamanho : **number** `Required`, default=`0`
