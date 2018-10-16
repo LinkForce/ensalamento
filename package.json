@@ -11,19 +11,20 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
-    "compression": "^1.0.3",
-    "cors": "^2.5.2",
-    "helmet": "^3.10.0",
-    "loopback-boot": "^2.6.5",
-    "serve-favicon": "^2.0.1",
-    "strong-error-handler": "^3.0.0",
-    "loopback-component-explorer": "^6.0.0",
-    "loopback": "^3.19.0"
+    "async": "^2.6.1",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
+    "helmet": "^3.13.0",
+    "loopback": "^3.22.3",
+    "loopback-boot": "^2.27.1",
+    "loopback-component-explorer": "^6.3.0",
+    "loopback-connector-postgresql": "^3.4.0",
+    "serve-favicon": "^2.5.0",
+    "strong-error-handler": "^3.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.17.1",
-    "eslint-config-loopback": "^8.0.0",
-    "nsp": "^2.1.0"
+    "eslint": "^5.6.1",
+    "eslint-config-loopback": "^8.0.0"
   },
   "repository": {
     "type": "",

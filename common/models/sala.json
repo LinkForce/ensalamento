@@ -4,7 +4,12 @@
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "idInjection": false,
+    "ensalemento": {
+      "schema": "strongloop",
+      "table": "sala"
+    }
   },
   "properties": {
     "localizacao": {

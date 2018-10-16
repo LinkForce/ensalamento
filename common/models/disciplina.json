@@ -1,0 +1,138 @@
+{
+  "name": "Disciplina",
+  "plural": "disciplinas",
+  "base": "PersistedModel",
+  "options": {
+    "ensalemento": {
+      "schema": "strongloop",
+      "table": "disciplina"
+    }
+  },
+  "properties": {
+    "codigo": {
+      "type": "String",
+      "required": true,
+      "length": 64,
+      "precision": null,
+      "scale": null,
+      "postgresql": {
+        "columnName": "codigo",
+        "dataType": "character varying",
+        "dataLength": 64,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO"
+      }
+    },
+    "carga_horaria": {
+      "type": "Number",
+      "required": true,
+      "precision": null,
+      "scale": null,
+      "default": 0,
+      "postgresql": {
+        "columnName": "carga_horaria",
+        "dataType": "Integer",
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO",
+        "default": 0
+      }
+    },
+    "duracao": {
+      "type": "String",
+      "required": true,
+      "length": 64,
+      "precision": null,
+      "scale": null,
+      "default": "semestral",
+      "postgresql": {
+        "columnName": "duracao",
+        "dataType": "character varying",
+        "dataLength": 64,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO",
+        "default": "semestral"
+      }
+    },
+    "modalidade": {
+      "type": "String",
+      "required": true,
+      "length": 64,
+      "precision": null,
+      "scale": null,
+      "default": "presencial",
+      "postgresql": {
+        "columnName": "modalidade",
+        "dataType": "character varying",
+        "dataLength": 64,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "NO",
+        "default": "presencial"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "methods": {
+    "prototype.addEquivalencia": {
+      "accepts": [
+        {
+          "arg": "disciplina_eq_id",
+          "type": "number"
+        }
+      ],
+      "returns": {
+        "arg": "data",
+        "type": "string"
+      },
+      "http": {
+        "verb": "post",
+        "path": "/addEquivalencia"
+      }
+    },
+    "prototype.getEquivalencias": {
+      "accepts": [],
+      "returns": {
+        "arg": "data",
+        "type": "string"
+      },
+      "http": {
+        "verb": "get",
+        "path": "/getEquivalencias"
+      }
+    },
+    "prototype.deleteEquivalencia": {
+      "accepts": [
+        {
+          "arg": "disciplina_eq_id",
+          "type": "number"
+        }
+      ],
+      "returns": {
+        "arg": "data",
+        "type": "string"
+      },
+      "http": {
+        "verb": "post",
+        "path": "/deleteEquivalencia"
+      }
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "*"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    }
+  ]
+}

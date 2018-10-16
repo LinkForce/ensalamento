@@ -14,33 +14,41 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "ensalamento"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": false
   },
   "Sala": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": true
   },
   "Bloco": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": true
+  },
+  "Disciplina": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "EquivalenciaDisciplina": {
+    "dataSource": "ensalamento",
+    "public": false
   }
 }

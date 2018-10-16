@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "ensalamento": {
+  "name": "ensalamento",
+  "connector": "postgresql",
+  "host": "${PGHOST}",
+  "port": 5432,
+  "database": "ensalamento",
+  "password": "${POSTGRES_PASSWORD}",
+  "user":  "${POSTGRES_USER}",
+  "ssl": false
+ }
+}

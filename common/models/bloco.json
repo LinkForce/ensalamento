@@ -4,7 +4,12 @@
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": true,
+    "idInjection": false,
+    "ensalemento": {
+      "schema": "strongloop",
+      "table": "bloco"
+    }
   },
   "properties": {
     "localizacao": {
@@ -22,7 +27,7 @@
     "salas": {
       "type": "hasMany",
       "model": "Sala",
-      "foreignKey": "",
+      "foreignKey": "id",
       "options": {
         "nestRemoting": true,
         "disableInclude": true
@@ -37,19 +42,17 @@
       "property": "*"
     },
     {
+      "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$authenticated",
-      "permission": "ALLOW",
-      "accessType": "READ"
+      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW",
-      "property":"*"
+      "property": "*"
     }
-
-
   ],
   "methods": {}
 }
