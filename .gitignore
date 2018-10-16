@@ -23,3 +23,4 @@ dist
 *xunit.xml
 .nyc_output/
 .editorconfig
+.env

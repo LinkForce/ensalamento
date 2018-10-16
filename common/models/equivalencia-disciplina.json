@@ -1,0 +1,41 @@
+{
+  "name": "EquivalenciaDisciplina",
+  "plural": "equivalenciasDisciplinas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": false,
+    "idInjection": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "disciplina1": {
+      "type": "belongsTo",
+      "model": "Disciplina",
+      "foreignKey": "disciplina1",
+      "required": true
+    },
+    "disciplina2": {
+      "type": "belongsTo",
+      "model": "Disciplina",
+      "foreignKey": "disciplina2",
+      "required": true
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "*"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    }
+  ],
+  "methods": {}
+}

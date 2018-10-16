@@ -1,0 +1,35 @@
+version: "3" # version matters, see https://docs.docker.com/compose/networking/
+services:
+    ensalamento-postgres:
+        container_name: ensalamento-postgres
+        image: postgres:9.6
+        environment:
+            POSTGRES_USER: ${ENSALAMENTO_DB_USER}
+            POSTGRES_PASSWORD: ${ENSALAMENTO_DB_PASSWORD}
+        volumes:
+            - ~/.docker-volumes/ensalamento/db:/var/lib/postgresql/data
+        networks:
+            backend:
+
+    ensalamento-backend:
+      build: .
+      environment:
+          PGHOST: ensalamento-postgres
+          POSTGRES_USER: ${ENSALAMENTO_DB_USER}
+          POSTGRES_PASSWORD: ${ENSALAMENTO_DB_PASSWORD}
+          NODE_ENV: ${ENSALAMENTO_NODE_ENV}
+      volumes:
+        - ./bin/:/app/bin/
+        - ./common/:/app/common/
+        - ./server/:/app/server/
+        - ./src/:/app/src/
+        - ./client/:/app/client/
+      ports:
+        - '3000:3000'
+      depends_on:
+        - ensalamento-postgres
+      networks:
+        backend:
+      restart: on-failure
+networks:
+    backend:
