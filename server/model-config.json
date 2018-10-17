@@ -47,7 +47,7 @@
     "dataSource": "ensalamento",
     "public": true
   },
-  "EquivalenciaDisciplina": {
+  "Equivalenciadisciplina": {
     "dataSource": "ensalamento",
     "public": false
   }
