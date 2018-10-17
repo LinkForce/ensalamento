@@ -1,13 +1,20 @@
 var path = require('path');
 var async = require('async');
 
-
 var app = require(path.resolve(__dirname, '../server/server'));
 var ds = app.datasources.ensalamento;
 
 
+var functions = [discoverAndBuildUser, discoverAndBuildRole, discoverAndBuildSala,
+                discoverAndBuildSala, discoverAndBuildBloco, discoverAndBuildDisciplina,
+                discoverAndBuildEquivalenciadisciplina, discoverAndBuildAccessToken,
+                discoverAndBuildACL,discoverAndBuildRoleMapping
+            ]
+async.parallel(functions,function(error){
+    if (err) throw err;
 
-
+    ds.disconnect();
+});
 
 function discoverAndBuildUser(){
 
@@ -27,11 +34,9 @@ function discoverAndBuildAccessToken(){
 
     ds.discoverAndBuildModels('accesstoken', {schema: 'public'}, function(err, models) {
       if (err) throw err;
-
-      models.AccessToken.find(function(err, accesstokens) {
+      models.Accesstoken.find(function(err, accesstokens) {
         if (err) return console.log(err);
-
-        console.log(accesstoken);
+        console.log(accesstokens);
 
 
       });
@@ -44,8 +49,7 @@ function discoverAndBuildACL(){
 
     ds.discoverAndBuildModels('acl', {schema: 'public'}, function(err, models) {
       if (err) throw err;
-
-      models.ACL.find(function(err, acls) {
+      models.Acl.find(function(err, acls) {
         if (err) return console.log(err);
 
         console.log(acls);
@@ -63,10 +67,10 @@ function discoverAndBuildRoleMapping(){
     ds.discoverAndBuildModels('rolemapping', {schema: 'public'}, function(err, models) {
       if (err) throw err;
 
-      models.RoleMapping.find(function(err, rolesmapping) {
+      models.Rolemapping.find(function(err, rolesmappings) {
         if (err) return console.log(err);
 
-        console.log(rolesmapping);
+        console.log(rolesmappings);
 
       });
 
@@ -135,7 +139,7 @@ function discoverAndBuildDisciplina(){
       models.Disciplina.find(function(err, disciplinas) {
         if (err) return console.log(err);
 
-        console.log(disciplina);
+        console.log(disciplinas);
 
       });
 
@@ -145,12 +149,11 @@ function discoverAndBuildDisciplina(){
 
 
 
-function discoverAndBuildEquivalenciaDisciplina(){
+function discoverAndBuildEquivalenciadisciplina(){
 
     ds.discoverAndBuildModels('equivalenciadisciplina', {schema: 'public'}, function(err, models) {
       if (err) throw err;
-
-      models.EquivalenciaDisciplina.find(function(err, equivalenciadisciplinas) {
+      models.Equivalenciadisciplina.find(function(err, equivalenciadisciplinas) {
         if (err) return console.log(err);
 
         console.log(equivalenciadisciplinas);

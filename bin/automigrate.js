@@ -6,7 +6,7 @@ var app = require(path.resolve(__dirname, '../server/server'));
 var ds = app.datasources.ensalamento;
 
 
-var lbTables = ['User','AccessToken','ACL','RoleMapping','Role','Sala','Bloco','Disciplina', 'EquivalenciaDisciplina'];
+var lbTables = ['User','AccessToken','ACL','RoleMapping','Role','Sala','Bloco','Disciplina', 'Equivalenciadisciplina'];
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
 
@@ -83,9 +83,9 @@ function criaEquivalencia(cb){
   app.models.Disciplina.find({id:1}, function(err, disc){
     disc[0].addEquivalencia(2,function(err,data){
       if (err) throw err;
-      console.log('Created EquivalenciaDisciplina:', disc);
+      console.log('Created Equivalenciadisciplina:', disc);
     });
-    
+
   });
 }
 

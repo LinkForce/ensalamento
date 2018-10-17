@@ -1,6 +1,6 @@
 {
-  "name": "EquivalenciaDisciplina",
-  "plural": "equivalenciasDisciplinas",
+  "name": "Equivalenciadisciplina",
+  "plural": "equivalenciasdisciplinas",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
