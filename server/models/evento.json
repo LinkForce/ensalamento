@@ -1,39 +1,31 @@
 {
-  "name": "Bloco",
-  "plural": "blocos",
+  "name": "Evento",
+  "plural": "eventos",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
-    "validateUpsert": true,
-    "idInjection": false,
-    "ensalemento": {
-      "schema": "strongloop",
-      "table": "bloco"
-    }
+    "validateUpsert": true
   },
   "properties": {
-    "localizacao": {
-      "type": "geopoint",
+    "organizador": {
+      "type": "string",
       "required": true
     },
-    "tamanho": {
+    "vagas": {
       "type": "number",
-      "required": true,
-      "default": 0
+      "required": true
+    },
+    "ano": {
+      "type": "number",
+      "required": true
+    },
+    "periodo": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
-  "relations": {
-    "salas": {
-      "type": "hasMany",
-      "model": "Sala",
-      "foreignKey": "id",
-      "options": {
-        "nestRemoting": true,
-        "disableInclude": true
-      }
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "principalType": "ROLE",
