@@ -6,7 +6,8 @@ var app = require(path.resolve(__dirname, '../server/server'));
 var ds = app.datasources.ensalamento;
 
 
-var lbTables = ['User','AccessToken','ACL','RoleMapping','Role','Sala','Bloco','Disciplina', 'Equivalenciadisciplina'];
+var lbTables = ['User','AccessToken','ACL','RoleMapping','Role','Sala','Bloco','Disciplina', 'Equivalenciadisciplina', 'Evento', 'Turma'];
+
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
 

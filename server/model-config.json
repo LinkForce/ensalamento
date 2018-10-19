@@ -50,5 +50,13 @@
   "Equivalenciadisciplina": {
     "dataSource": "ensalamento",
     "public": false
+  },
+  "Evento": {
+    "dataSource": "ensalamento",
+    "public": false
+  },
+  "Turma": {
+    "dataSource": "ensalamento",
+    "public": true
   }
 }
