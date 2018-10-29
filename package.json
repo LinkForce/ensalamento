@@ -24,7 +24,8 @@
   },
   "devDependencies": {
     "eslint": "^5.6.1",
-    "eslint-config-loopback": "^8.0.0"
+    "eslint-config-loopback": "^8.0.0",
+    "loopback-cli": "3.1.0"
   },
   "repository": {
     "type": "",
