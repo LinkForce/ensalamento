@@ -2,42 +2,20 @@
   "name": "Disciplina",
   "plural": "disciplinas",
   "base": "PersistedModel",
-  "options": {
-    "ensalemento": {
-      "schema": "strongloop",
-      "table": "disciplina"
-    }
-  },
   "properties": {
     "codigo": {
       "type": "String",
       "required": true,
       "length": 64,
       "precision": null,
-      "scale": null,
-      "postgresql": {
-        "columnName": "codigo",
-        "dataType": "character varying",
-        "dataLength": 64,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO"
-      }
+      "scale": null
     },
     "carga_horaria": {
       "type": "Number",
       "required": true,
       "precision": null,
       "scale": null,
-      "default": 0,
-      "postgresql": {
-        "columnName": "carga_horaria",
-        "dataType": "Integer",
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO",
-        "default": 0
-      }
+      "default": 0
     },
     "duracao": {
       "type": "String",
@@ -45,16 +23,7 @@
       "length": 64,
       "precision": null,
       "scale": null,
-      "default": "semestral",
-      "postgresql": {
-        "columnName": "duracao",
-        "dataType": "character varying",
-        "dataLength": 64,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO",
-        "default": "semestral"
-      }
+      "default": "semestral"
     },
     "modalidade": {
       "type": "String",
@@ -62,16 +31,7 @@
       "length": 64,
       "precision": null,
       "scale": null,
-      "default": "presencial",
-      "postgresql": {
-        "columnName": "modalidade",
-        "dataType": "character varying",
-        "dataLength": 64,
-        "dataPrecision": null,
-        "dataScale": null,
-        "nullable": "NO",
-        "default": "presencial"
-      }
+      "default": "presencial"
     }
   },
   "validations": [],
@@ -81,6 +41,11 @@
       "model": "Turma",
       "foreignKey": "disciplinaId",
       "required": true
+    },
+    "recursosnecessarios": {
+      "type": "hasAndBelongsToMany",
+      "model": "Recursodesala",
+      "foreignKey": ""
     }
   },
   "acls": [

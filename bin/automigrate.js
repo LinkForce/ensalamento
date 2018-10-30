@@ -6,12 +6,25 @@ var app = require(path.resolve(__dirname, '../server/server'));
 var ds = app.datasources.ensalamento;
 
 
-var lbTables = ['User','AccessToken','ACL','RoleMapping','Role','Sala','Bloco','Disciplina', 'Equivalenciadisciplina', 'Evento', 'Turma'];
+var lbTables = [
+  'User',
+  'AccessToken',
+  'ACL','RoleMapping',
+  'Role',
+  'Sala',
+  'Bloco',
+  'Disciplina',
+  'Equivalenciadisciplina',
+  'Evento',
+  'Turma',
+  'Recursodesala',
+  'DisciplinaRecursodesala'
+];
 
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
 
-  async.waterfall([criaBloco,criaSala,criaUser,criaDisciplina, criaEquivalencia], function(err) {
+  async.waterfall([criaBloco,criaSala,criaUser,criaDisciplina, criaEquivalencia, criaRecursodesala], function(err) {
     if (err) throw err;
     ds.disconnect();
   })
@@ -56,6 +69,23 @@ function criaSala(cb){
 }
 
 
+function criaRecursodesala(cb){
+  var recursos = [
+    {descricao: 'recurso1'},
+    {descricao: 'recurso2'}
+  ];
+  async.each(recursos, function(recurso, callback) {
+    app.models.Recursodesala.create(recurso, function(err, model) {
+      callback(err);
+      console.log('Created:', model);
+    });
+  }, function(err) {
+    if (err) throw err;
+    cb(err);
+  });
+}
+
+
 function criaUser(cb){
   app.models.User.create([
     {username: 'admin', email: 'admin@admin.com', password: '123mudar'},
@@ -85,6 +115,7 @@ function criaEquivalencia(cb){
     disc[0].addEquivalencia(2,function(err,data){
       if (err) throw err;
       console.log('Created Equivalenciadisciplina:', disc);
+      cb(err);
     });
 
   });
@@ -99,10 +130,12 @@ function criaDisciplina(cb){
 
   async.each(disciplinas, function(disciplina, callback) {
     app.models.Disciplina.create(disciplina, function(err, model) {
+      if (err) throw err;
       callback(err);
       console.log('Created:', model);
     });
   }, function(err) {
+    if (err) throw err;
     cb(err);
   });
 

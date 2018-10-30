@@ -40,6 +40,7 @@
 - Relations
   * This model have a self-realtion. To implement this, we use the EquivalenciaDisciplina model
   * Has Many : **Turma** `Required (in Turma)` as `disciplinaId (in Turma)`
+  * Has and Belongs To Many : **Recursodesala**
 
 
 ## EquivalenciaDisciplina
@@ -75,6 +76,16 @@
   * horarios : **date** `Required`
   * data_inicio : **date** `Required`
   * data_fim : **date** `Required`
+- ACLs
+  * All permissions not specified is `DENY`
+  * **$everyone** ROLE have all READ operations
+  * **admin** ROLE have all EXECUTE, READ and WRITE operations
+- Relations
+
+## Recursodesala
+- Public: `False`
+- Attributes
+  * descricao : **string** `Required`
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations
