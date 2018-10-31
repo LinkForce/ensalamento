@@ -62,5 +62,9 @@
   "Recursodesala": {
     "dataSource": "ensalamento",
     "public": false
+  },
+  "Tipodesala": {
+    "dataSource": "ensalamento",
+    "public": false
   }
 }

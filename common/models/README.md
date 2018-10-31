@@ -13,6 +13,7 @@
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
   * Belongs to : **Bloco**
+  * Has and Belongs To Many : **Recursodesala** as `recursos` 
 
 ## Bloco
 - Public: `True`
@@ -40,7 +41,7 @@
 - Relations
   * This model have a self-realtion. To implement this, we use the EquivalenciaDisciplina model
   * Has Many : **Turma** `Required (in Turma)` as `disciplinaId (in Turma)`
-  * Has and Belongs To Many : **Recursodesala**
+  * Has and Belongs To Many : **Recursodesala** as `recursosnecessarios`
 
 
 ## EquivalenciaDisciplina
@@ -84,6 +85,10 @@
 
 ## Recursodesala
 - Public: `False`
+- Description: This model contains the resources listage of rooms.
+               In future, this can be use to allocate a room to disciplinas. 
+               In this case, a disciplina must gain a room that meet this 
+               resources needs.
 - Attributes
   * descricao : **string** `Required`
 - ACLs
@@ -91,3 +96,25 @@
   * **$everyone** ROLE have all READ operations
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
+- Observation: In future, its possible that will be necessary to find
+               rooms filtering by resources. Loopback gives a set of utilities
+               to solve many types of this problems, including filtering
+               relations: https://loopback.io/doc/en/lb3/Include-filter.html
+
+## Tipodesala
+- Public: `False`
+- Description: This model contains the types of rooms listage.
+               In future, this can be use to allocate a room to disciplinas. 
+               In this case, a disciplina must gain a room that meet this 
+               room type need.
+- Attributes
+  * nome : **string** `Required`
+- ACLs
+  * All permissions not specified is `DENY`
+  * **$everyone** ROLE have all READ operations
+  * **admin** ROLE have all EXECUTE, READ and WRITE operations
+- Relations
+- Observation: In future, its possible that will be necessary to find
+               rooms filtering by resources. Loopback gives a set of utilities
+               to solve many types of this problems, including filtering
+               relations: https://loopback.io/doc/en/lb3/Include-filter.html

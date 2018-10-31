@@ -38,6 +38,16 @@
       "type": "belongsTo",
       "model": "Bloco",
       "foreignKey": ""
+    },
+    "recursos": {
+      "type": "hasAndBelongsToMany",
+      "model": "Recursodesala",
+      "foreignKey": ""
+    },
+    "tipo": {
+      "type": "belongsTo",
+      "model": "Tipodesala",
+      "foreignKey": "tipodesalaId"
     }
   },
   "acls": [
