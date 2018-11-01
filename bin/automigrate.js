@@ -18,13 +18,15 @@ var lbTables = [
   'Evento',
   'Turma',
   'Recursodesala',
-  'DisciplinaRecursodesala'
+  'DisciplinaRecursodesala',
+  'SalaRecursodesala',
+  'Tipodesala'
 ];
 
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
 
-  async.waterfall([criaBloco,criaSala,criaUser,criaDisciplina, criaEquivalencia, criaRecursodesala], function(err) {
+  async.waterfall([criaBloco,criaSala,criaUser,criaDisciplina, criaEquivalencia, criaRecursodesala, criaTipodesala], function(err) {
     if (err) throw err;
     ds.disconnect();
   })
@@ -76,6 +78,22 @@ function criaRecursodesala(cb){
   ];
   async.each(recursos, function(recurso, callback) {
     app.models.Recursodesala.create(recurso, function(err, model) {
+      callback(err);
+      console.log('Created:', model);
+    });
+  }, function(err) {
+    if (err) throw err;
+    cb(err);
+  });
+}
+
+function criaTipodesala(cb){
+  var tipos = [
+    {nome: 'tipo1'},
+    {nome: 'tipo2'}
+  ];
+  async.each(tipos, function(tipo, callback) {
+    app.models.Tipodesala.create(tipo, function(err, model) {
       callback(err);
       console.log('Created:', model);
     });

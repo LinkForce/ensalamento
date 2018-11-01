@@ -46,6 +46,11 @@
       "type": "hasAndBelongsToMany",
       "model": "Recursodesala",
       "foreignKey": ""
+    },
+    "tipo_sala_necessaria": {
+      "type": "belongsTo",
+      "model": "Tipodesala",
+      "foreignKey": "tipodesalaId"
     }
   },
   "acls": [
