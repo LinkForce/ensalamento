@@ -5,16 +5,15 @@ var models = require(path.resolve(__dirname,'../common/models/models.js'))
 
 
 var models = models.models;
+var models_lower = models.models_lower;
 var app = require(path.resolve(__dirname, '../server/server'));
 var ds = app.datasources.ensalamento;
-var new_models = models.map(function(x){
-    return x.toLowerCase();
-});
+
 
 ds.isActual(models, function(err, actual) {
   console.log('Is actual?:  ', actual);
   if (!actual) {
-    ds.autoupdate(models, function(err, result) {
+    ds.autoupdate(models_lower, function(err, result) {
         new_models.forEach(function(model){
             ds.discoverModelProperties(model, function (err, props) {
                 console.log(props);
