@@ -3,10 +3,13 @@
 ## Sala
 - Public: `False`
 - Attributes
+  * nome : **string**
+  * codigo : **string** `Required`
   * localizacao : **geopoint** `Required`
+  * andar : **number** default=`0`
   * capacidade : **number** `Required`, default=`0`
-  * tipo : **string** `Required`, default=`"normal"`
   * restrita : **boolean** `Required`, default=`false`
+  * observacao : **string**
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations
@@ -17,7 +20,9 @@
 
 ## Bloco
 - Public: `True`
-- Attributes
+- Attributes `idInjection`=`false`
+  * nome : **string** `Required`
+  * codigo : **string** `Required` `primaryKey`
   * localizacao : **geopoint** `Required`
   * tamanho : **number** `Required`, default=`0`
 - ACLs
@@ -25,7 +30,6 @@
   * **$everyone** ROLE have all READ operations
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
-  * Has many : **Sala** `nestRemoting`, `disableInclude`
 
 ## Disciplina
 - Public: `True`

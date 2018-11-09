@@ -2,7 +2,7 @@
   "name": "Bloco",
   "plural": "blocos",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true,
     "idInjection": false,
@@ -16,6 +16,15 @@
       "type": "geopoint",
       "required": true
     },
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "codigo": {
+      "type": "string",
+      "required": true,
+      "id":true
+    },
     "tamanho": {
       "type": "number",
       "required": true,
@@ -23,17 +32,7 @@
     }
   },
   "validations": [],
-  "relations": {
-    "salas": {
-      "type": "hasMany",
-      "model": "Sala",
-      "foreignKey": "id",
-      "options": {
-        "nestRemoting": true,
-        "disableInclude": true
-      }
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "principalType": "ROLE",

@@ -12,24 +12,33 @@
     }
   },
   "properties": {
+    "nome": {
+      "type": "string"
+    },
+    "codigo": {
+      "type": "string",
+      "required": true
+    },
     "localizacao": {
       "type": "geopoint",
       "required": true
+    },
+    "andar": {
+      "type": "number",
+      "default": 0
     },
     "capacidade": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "tipo": {
-      "type": "string",
-      "required": true,
-      "default": "normal"
-    },
     "restrita": {
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "observacao": {
+      "type": "string"
     }
   },
   "validations": [],
@@ -37,7 +46,7 @@
     "bloco": {
       "type": "belongsTo",
       "model": "Bloco",
-      "foreignKey": ""
+      "foreignKey": "blocoCod"
     },
     "recursos": {
       "type": "hasAndBelongsToMany",
