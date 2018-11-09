@@ -4,6 +4,8 @@ var path = require('path');
 var models = require(path.resolve(__dirname,'../common/models/models.js'))
 
 var app = require(path.resolve(__dirname, '../server/server'));
+var old_db = require(path.resolve(__dirname, '../bin/load-old-database'));
+
 var ds = app.datasources.ensalamento;
 
 var lbTables = models.models;
@@ -20,39 +22,44 @@ ds.automigrate(lbTables, function(err) {
 });
 
 function criaBloco(cb){
-  var blocos = [
-    {localizacao: '0,0', tamanho: 10},
-    {localizacao: '0,0', tamanho: 10}
-  ];
-
-  async.each(blocos, function(bloco, callback) {
-    app.models.Bloco.create(bloco, function(err, model) {
-      callback(err);
-      console.log('Created:', model);
+  // var blocos = [
+  //   {localizacao: '0,0', tamanho: 10, nome: "bloco1", codigo:"codigo1"},
+  //   {localizacao: '0,0', tamanho: 10, nome: "bloco2", codigo:"codigo2"}
+  // ];
+  old_db.get_blocos.then(blocos => {
+    async.each(blocos, function(bloco, callback) {
+      app.models.Bloco.create(bloco, function(err, model) {
+        callback(err);
+        console.log('Created:', model);
+      });
+    }, function(err) {
+      if (err) throw err;
+      cb(err);
     });
-  }, function(err) {
-    if (err) throw err;
-    cb(err);
   });
+
 }
 
 
 function criaSala(cb){
 
-  var salas = [
-    {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:false},
-    {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:true}
-  ];
-
-  async.each(salas, function(sala, callback) {
-    app.models.Sala.create(sala, function(err, model) {
-      callback(err);
-      console.log('Created:', model);
+  // var salas = [
+  //   {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:false},
+  //   {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:true}
+  // ];
+  
+  old_db.get_salas.then(salas => {
+    async.each(salas, function(sala, callback) {
+      app.models.Sala.create(sala, function(err, model) {
+        callback(err);
+        console.log('Created:', model);
+      });
+    }, function(err) {
+      if (err) throw err;
+      cb(err);
     });
-  }, function(err) {
-    if (err) throw err;
-    cb(err);
   });
+  
 }
 
 
