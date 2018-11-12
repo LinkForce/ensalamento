@@ -1,4 +1,4 @@
-FROM node:6.14.4
+FROM node:8.12-jessie
 LABEL maintainer="horstmannmat <mch15@inf.ufpr.br>"
 
 ENV DEBIAN_FRONTEND noninteractive
