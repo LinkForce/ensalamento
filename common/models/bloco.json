@@ -5,7 +5,6 @@
   "idInjection": false,
   "options": {
     "validateUpsert": true,
-    "idInjection": false,
     "ensalemento": {
       "schema": "strongloop",
       "table": "bloco"
@@ -29,6 +28,11 @@
       "type": "number",
       "required": true,
       "default": 0
+    },
+    "_id":{
+      "type":"string",
+      "id":true,
+      "generated":true
     }
   },
   "validations": [],
