@@ -56,7 +56,7 @@
     "tipo": {
       "type": "belongsTo",
       "model": "Tipodesala",
-      "foreignKey": "tipodesalaId"
+      "foreignKey": "tipo"
     }
   },
   "acls": [

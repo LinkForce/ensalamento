@@ -36,7 +36,9 @@ var rooms = [
     "can_use": "restrita",
     "latitude": "latitude",
     "longitude": "longitude",
-    "blocks_code": "blocoCod"
+    "blocks_code": "blocoCod",
+    "type": "tipo"
+
 },function(x){
     x.restrita = !x.restrita;
     x.localizacao = {lat:x.latitude, lng: x.longitude};
@@ -44,8 +46,23 @@ var rooms = [
     delete x.longitude;
     return x;
 },
-"*, blocks.code as blocks_code",
-"rooms INNER JOIN blocks ON rooms.block_id = blocks.id",
+
+"   *,\
+    blocks.code as blocks_code,\
+    rooms.code as code,\
+    rooms.name as name,\
+    blocks.name as blocks_name,\
+    room_types.name as type\
+",
+
+
+"   rooms\
+    INNER JOIN\
+    blocks ON rooms.block_id = blocks.id\
+    INNER JOIN\
+    room_types ON room_type_id=room_types.id\
+",
+
 "salas"
 ];
 

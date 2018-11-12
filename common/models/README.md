@@ -21,10 +21,11 @@
 ## Bloco
 - Public: `True`
 - Attributes `idInjection`=`false`
-  * nome : **string** `Required`
+  * nome : **string** `Required` `id`
   * codigo : **string** `Required` `primaryKey`
   * localizacao : **geopoint** `Required`
   * tamanho : **number** `Required`, default=`0`
+  * _id : **number** `generated` `id`
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations

@@ -1,7 +1,7 @@
 {
   "name": "Tipodesala",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -9,7 +9,8 @@
     "nome": {
       "type": "string",
       "required": true,
-      "default": "normal"
+      "default": "normal",
+      "id": true
     }
   },
   "validations": [],
