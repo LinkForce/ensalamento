@@ -2,7 +2,7 @@
   "name": "Sala",
   "plural": "salas",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true,
     "idInjection": false,
@@ -17,7 +17,8 @@
     },
     "codigo": {
       "type": "string",
-      "required": true
+      "required": true,
+      "id": true
     },
     "localizacao": {
       "type": "geopoint",
@@ -39,6 +40,11 @@
     },
     "observacao": {
       "type": "string"
+    },
+    "_id":{
+      "type":"string",
+      "id":true,
+      "generated":true
     }
   },
   "validations": [],
