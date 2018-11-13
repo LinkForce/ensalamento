@@ -1,5 +1,5 @@
 {
-  "name": "Tipodesala",
+  "name": "Orgao",
   "base": "PersistedModel",
   "idInjection": false,
   "options": {
@@ -8,25 +8,35 @@
   "properties": {
     "nome": {
       "type": "string",
+      "required": true
+    },
+    "localizacao": {
+      "type": "geopoint"
+    },
+    "codigo": {
+      "type": "string",
       "id": true,
-      "required": true,
-      "default": "normal"
+      "required": true
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "secretario": {
+      "type": "belongsTo",
+      "model": "Secretario",
+      "foreignKey": "secretarioId"
+    }
+  },
   "acls": [
     {
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "DENY",
       "property": "*"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",

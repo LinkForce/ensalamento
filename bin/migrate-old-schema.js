@@ -24,7 +24,7 @@
 
 // new_name:  This is NECESSARILY a name of an model in the Loopback schema
 
-var connectionString = 'postgresql://bhm15:pass@localhost:5432/ensalamento';
+var connectionString = 'postgresql://login:password@localhost:5432/ensalamento';
 
 var rooms = [
 {

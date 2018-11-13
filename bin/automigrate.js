@@ -21,6 +21,9 @@ ds.automigrate(lbTables, function(err) {
 
 });
 
+
+var LOG_CREATE = false;
+
 function criaBloco(cb){
   // var blocos = [
   //   {localizacao: '0,0', tamanho: 10, nome: "bloco1", codigo:"codigo1"},
@@ -30,7 +33,7 @@ function criaBloco(cb){
     async.each(blocos, function(bloco, callback) {
       app.models.Bloco.create(bloco, function(err, model) {
         callback(err);
-        console.log('Created:', model);
+        if(LOG_CREATE) console.log('Created:', model);
       });
     }, function(err) {
       if (err) throw err;
@@ -52,7 +55,7 @@ function criaSala(cb){
     async.each(salas, function(sala, callback) {
       app.models.Sala.create(sala, function(err, model) {
         callback(err);
-        console.log('Created:', model);
+        if(LOG_CREATE) console.log('Created:', model);
       });
     }, function(err) {
       if (err) throw err;
@@ -71,7 +74,7 @@ function criaRecursodesala(cb){
   async.each(recursos, function(recurso, callback) {
     app.models.Recursodesala.create(recurso, function(err, model) {
       callback(err);
-      console.log('Created:', model);
+      if(LOG_CREATE) console.log('Created:', model);
     });
   }, function(err) {
     if (err) throw err;
@@ -87,7 +90,7 @@ function criaTipodesala(cb){
   async.each(tipos, function(tipo, callback) {
     app.models.Tipodesala.create(tipo, function(err, model) {
       callback(err);
-      console.log('Created:', model);
+      if(LOG_CREATE) console.log('Created:', model);
     });
   }, function(err) {
     if (err) throw err;
@@ -97,23 +100,24 @@ function criaTipodesala(cb){
 
 
 function criaUser(cb){
-  app.models.User.create([
+  app.models.Secretario.create([
     {username: 'admin', email: 'admin@admin.com', password: '123mudar'},
-    {username: 'normal', email: 'normal@normal.com', password: '123mudar'}
+    {username: 'secretario1', email: 'secretario1@secretario.com', password: '123mudar'},
+    {username: 'secretario2', email: 'secretario2@secretario.com', password: '123mudar'}
   ],function(err, users) {
     if (err) throw err;
-    console.log('Created users:', users);
+    if(LOG_CREATE) console.log('Created users:', users);
     app.models.Role.create({
       name: 'admin'
     }, function(err, role) {
       if (err) throw err;
-      console.log('Created role:', role);
+      if(LOG_CREATE) console.log('Created role:', role);
       role.principals.create({
         principalType: app.models.RoleMapping.USER,
         principalId: users[0].id
       }, function(err, principal) {
         if (err) throw err;
-        console.log('Assign admin Role to initial User:', users[0].email);
+        if(LOG_CREATE) console.log('Assign admin Role to initial User:', users[0].email);
         cb(err);
       });
     });
@@ -124,7 +128,7 @@ function criaEquivalencia(cb){
   app.models.Disciplina.find({id:1}, function(err, disc){
     disc[0].addEquivalencia(2,function(err,data){
       if (err) throw err;
-      console.log('Created Equivalenciadisciplina:', disc);
+      if(LOG_CREATE) console.log('Created Equivalenciadisciplina:', disc);
       cb(err);
     });
 
@@ -142,7 +146,7 @@ function criaDisciplina(cb){
     app.models.Disciplina.create(disciplina, function(err, model) {
       if (err) throw err;
       callback(err);
-      console.log('Created:', model);
+      if(LOG_CREATE) console.log('Created:', model);
     });
   }, function(err) {
     if (err) throw err;
