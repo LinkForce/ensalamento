@@ -21,22 +21,27 @@
     },
     "codigo": {
       "type": "string",
-      "required": true,
-      "id":true
+      "id": true,
+      "required": true
     },
     "tamanho": {
       "type": "number",
       "required": true,
       "default": 0
     },
-    "_id":{
-      "type":"string",
-      "id":true,
-      "generated":true
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "setor": {
+      "type": "belongsTo",
+      "model": "Setor",
+      "foreignKey": "setorCod"
+    }
+  },
   "acls": [
     {
       "principalType": "ROLE",

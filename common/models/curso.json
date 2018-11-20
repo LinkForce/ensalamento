@@ -1,20 +1,29 @@
 {
-  "name": "Tipodesala",
-  "base": "PersistedModel",
-  "idInjection": false,
+  "name": "Curso",
+  "plural": "cursos",
+  "base": "Orgao",
+  "idInjection": true,
   "options": {
     "validateUpsert": true
   },
-  "properties": {
-    "nome": {
-      "type": "string",
-      "id": true,
-      "required": true,
-      "default": "normal"
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "bloco": {
+      "type": "belongsTo",
+      "model": "Bloco",
+      "foreignKey": "blocoCod"
+    },
+    "setor": {
+      "type": "belongsTo",
+      "model": "Setor",
+      "foreignKey": "setorCod"
+    },
+    "disciplinas": {
+      "type": "hasAndBelongsToMany",
+      "model": "Disciplina"
     }
   },
-  "validations": [],
-  "relations": {},
   "acls": [
     {
       "principalType": "ROLE",

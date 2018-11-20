@@ -14,7 +14,8 @@
     ]
   },
   "User": {
-    "dataSource": "ensalamento"
+    "dataSource": "ensalamento",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "ensalamento",
@@ -66,5 +67,25 @@
   "Tipodesala": {
     "dataSource": "ensalamento",
     "public": false
+  },
+  "Orgao": {
+    "dataSource": "ensalamento",
+    "public": false
+  },
+  "Secretario": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "Setor": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "Departamento": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "Curso": {
+    "dataSource": "ensalamento",
+    "public": true
   }
 }

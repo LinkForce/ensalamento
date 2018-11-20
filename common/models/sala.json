@@ -5,7 +5,6 @@
   "idInjection": false,
   "options": {
     "validateUpsert": true,
-    "idInjection": false,
     "ensalemento": {
       "schema": "strongloop",
       "table": "sala"
@@ -41,10 +40,9 @@
     "observacao": {
       "type": "string"
     },
-    "_id":{
-      "type":"string",
-      "id":true,
-      "generated":true
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],
@@ -63,6 +61,11 @@
       "type": "belongsTo",
       "model": "Tipodesala",
       "foreignKey": "tipo"
+    },
+    "secretario": {
+      "type": "belongsTo",
+      "model": "Secretario",
+      "foreignKey": "ownerId"
     }
   },
   "acls": [
@@ -83,6 +86,12 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}

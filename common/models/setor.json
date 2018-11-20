@@ -1,31 +1,36 @@
 {
-  "name": "Turma",
-  "plural": "turmas",
-  "base": "Evento",
+  "name": "Setor",
+  "plural": "setores",
+  "base": "Orgao",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "horarios": {
-      "type": "date",
-      "required": true
+    "website": {
+      "type": "string"
     },
-    "data_inicio": {
-      "type": "date",
-      "required": true
-    },
-    "data_fim": {
-      "type": "date",
+    "email": {
+      "type": "string",
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "departamento": {
-      "type": "belongsTo",
+    "departamentos": {
+      "type": "hasMany",
       "model": "Departamento",
-      "foreignKey": "departamentoCod"
+      "foreignKey": "setorCod"
+    },
+    "blocos": {
+      "type": "hasMany",
+      "model": "Bloco",
+      "foreignKey": "setorCod"
+    },
+    "cursos": {
+      "type": "hasMany",
+      "model": "Curso",
+      "foreignKey": "setorCod"
     }
   },
   "acls": [
@@ -34,12 +39,6 @@
       "principalId": "$everyone",
       "permission": "DENY",
       "property": "*"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",

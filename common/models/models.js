@@ -17,7 +17,13 @@ var models = [
         'Recursodesala',
         'SalaRecursodesala',
         'DisciplinaRecursodesala',
-        'Tipodesala'
+        'Tipodesala',
+        'Orgao',
+        'Secretario',
+        'Setor',
+        'Departamento',
+        'Curso',
+        "CursoDisciplina"
     ];
 
 /**

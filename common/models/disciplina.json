@@ -2,9 +2,11 @@
   "name": "Disciplina",
   "plural": "disciplinas",
   "base": "PersistedModel",
+  "idInjection": false,
   "properties": {
     "codigo": {
       "type": "String",
+      "id": true,
       "required": true,
       "length": 64,
       "precision": null,
@@ -32,6 +34,10 @@
       "precision": null,
       "scale": null,
       "default": "presencial"
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],
@@ -51,6 +57,11 @@
       "type": "belongsTo",
       "model": "Tipodesala",
       "foreignKey": "tipodesalaId"
+    },
+    "departamento": {
+      "type": "belongsTo",
+      "model": "Departamento",
+      "foreignKey": "departamentoCod"
     }
   },
   "acls": [

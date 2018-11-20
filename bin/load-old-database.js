@@ -81,9 +81,9 @@ class EnsalamentoTable {
     this.get_table_from_db_parsed().then(data =>{
       var json = JSON.stringify(data);
       
-      console.log("Saving ", this.loopback_name, "into", this.file_path);
+      console.log("Saving ", this.loopback_name, "into", this.file_path, "with ", data.length, "rows");
       fs.writeFile(this.file_path, json, 'utf8', () => {
-        console.log("Saved ", this.loopback_name, "into", this.file_path);
+        console.log("Saved ", this.loopback_name, "into", this.file_path, "with ", data.length, "rows");
       });
     });
   }
