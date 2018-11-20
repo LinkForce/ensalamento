@@ -2,14 +2,15 @@
 
 ## Sala
 - Public: `False`
-- Attributes
+- Attributes `idInjection`=`false`
   * nome : **string**
-  * codigo : **string** `Required`
+  * codigo : **string** `Required` `primaryKey`
   * localizacao : **geopoint** `Required`
   * andar : **number** default=`0`
   * capacidade : **number** `Required`, default=`0`
   * restrita : **boolean** `Required`, default=`false`
   * observacao : **string**
+  * _id : **number** `generated` `primaryKey`
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations
@@ -25,7 +26,7 @@
   * codigo : **string** `Required` `primaryKey`
   * localizacao : **geopoint** `Required`
   * tamanho : **number** `Required`, default=`0`
-  * _id : **number** `generated` `id`
+  * _id : **number** `generated` `primaryKey`
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations
