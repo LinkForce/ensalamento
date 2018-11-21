@@ -45,7 +45,7 @@
     "turmas": {
       "type": "hasMany",
       "model": "Turma",
-      "foreignKey": "disciplinaId",
+      "foreignKey": "disciplinaCod",
       "required": true
     },
     "recursosnecessarios": {

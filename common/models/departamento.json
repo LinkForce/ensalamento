@@ -2,11 +2,25 @@
   "name": "Departamento",
   "plural": "departamentos",
   "base": "Orgao",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "codigo": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
+    }
+  },
   "validations": [],
   "relations": {
     "setor": {
@@ -17,6 +31,11 @@
     "turmas": {
       "type": "hasMany",
       "model": "Turma",
+      "foreignKey": "departamentoCod"
+    },
+    "professores": {
+      "type": "hasMany",
+      "model": "Professor",
       "foreignKey": "departamentoCod"
     }
   },

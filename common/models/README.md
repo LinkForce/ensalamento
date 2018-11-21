@@ -18,7 +18,7 @@
   * **owner** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
   * Belongs to : **Bloco** as `blocoCod`
-  * Has and Belongs To Many : **Recursodesala** as `recursos` 
+  * Has and Belongs To Many : **Recursodesala**
   * Belongs to : **Tipodesala** as `tipo`
   * Belongs to : **Secretario** as `ownerId`
 
@@ -53,7 +53,7 @@
 - Relations
   * This model have a self-realtion. To implement this, we use the EquivalenciaDisciplina model
   * Has Many : **Turma** `Required (in Turma)` as `disciplinaId (in Turma)`
-  * Has and Belongs To Many : **Recursodesala** as `recursosnecessarios`
+  * Has and Belongs To Many : **Recursodesala**
   * Belongs To : **Tipodesala** as `tipodesalaId`
   * Belongs To : **Departamento** as `departamentoCod`
 
@@ -97,6 +97,7 @@
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
   * Belongs To : **Departamento** as `departamentoCod`
+  * Belongs To : **Disciplina** as `disciplinaCod`
 
 ## Recursodesala
 - Public: `False`
@@ -160,14 +161,17 @@
 - Relations
   * Belongs To : **Bloco** as `blocoCod`
   * Belongs To : **Setor** as `setorCod`
-  * Has and Belongs To Many : **Setor** as `Disciplina`
+  * Has and Belongs To Many : **Disciplina**
 - Observation: The relation with Bloco means that one Curso will be relationed
                with a Bloco.
 
 ## Departamento
 - Public: `True`
 - Description: This model extend `Orgao`
-- Attributes
+- Attributes `idInjection`=`false`
+  * nome : **string** `Required`
+  * codigo : **string** `Required`, `id`
+  * _id : **number** `generated`
 - ACLs
   * All permissions not specified is `DENY`
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
@@ -204,3 +208,16 @@
 - Relations
   * Has Many : **Orgao** as `secretarioId`
   * Has Many : **Sala** as `ownerId`
+
+## Professor
+- Public: `True`
+- Attributes `idInjection`=`false`
+  * nome : **string** `Required`
+  * codigo : **string** `Required`, `id`
+  * _id : **number** `generated`
+- ACLs
+  * All permissions not specified is `DENY`
+  * **admin** ROLE have all EXECUTE, READ and WRITE operations
+- Relations
+  * Belongs To : **Departamento** as `departamentoCod`
+  * Has and Belongs To Many : **Turma**
