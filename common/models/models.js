@@ -23,7 +23,9 @@ var models = [
         'Setor',
         'Departamento',
         'Curso',
-        "CursoDisciplina"
+        "CursoDisciplina",
+        "Professor",
+        "ProfessorTurma"
     ];
 
 /**

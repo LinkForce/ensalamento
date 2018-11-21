@@ -1,23 +1,30 @@
 {
-  "name": "Turma",
-  "plural": "turmas",
-  "base": "Evento",
-  "idInjection": true,
+  "name": "Professor",
+  "plural": "professores",
+  "base": "PersistedModel",
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "horarios": {
-      "type": "date",
+    "codigo": {
+      "type": "string",
+      "required": true,
+      "id": true
+    },
+    "nome": {
+      "type": "string",
       "required": true
     },
-    "data_inicio": {
-      "type": "date",
-      "required": true
+    "website": {
+      "type": "string"
     },
-    "data_fim": {
-      "type": "date",
-      "required": true
+    "email": {
+      "type": "string"
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],
@@ -27,10 +34,9 @@
       "model": "Departamento",
       "foreignKey": "departamentoCod"
     },
-    "disciplina": {
-      "type": "belongsTo",
-      "model": "Disciplina",
-      "foreignKey": "disciplinaCod"
+    "turmas": {
+      "type": "hasAndBelongsToMany",
+      "model": "Turma"
     }
   },
   "acls": [
@@ -39,12 +45,6 @@
       "principalId": "$everyone",
       "permission": "DENY",
       "property": "*"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
     },
     {
       "principalType": "ROLE",
