@@ -22,9 +22,11 @@
 
 // query:     The query (SQL) that will be used to load the table
 
-// new_name:  This is NECESSARILY a name of an model in the Loopback schema
+// new_name:  This is NECESSARILY a name of an model in the Loopback schema.
+//            On automigrate, this will be used to access data with a promisse.
+//            For instance, get_blocos.then ...
 
-var connectionString = 'postgresql://login:password@localhost:5432/ensalamento';
+var connectionString = 'postgresql://bhm15:pass@localhost:5432/ensalamento';
 
 var rooms = [
 {
@@ -46,7 +48,7 @@ var rooms = [
     delete x.longitude;
     return x;
 },
-
+//SELECT
 "   *,\
     blocks.code as blocks_code,\
     rooms.code as code,\
@@ -54,15 +56,14 @@ var rooms = [
     blocks.name as blocks_name,\
     room_types.name as type\
 ",
-
-
+//FROM
 "   rooms\
     INNER JOIN\
-    blocks ON rooms.block_id = blocks.id\
+    blocks ON rooms.block_id=blocks.id\
     INNER JOIN\
     room_types ON room_type_id=room_types.id\
 ",
-
+//SAVE FILE HAS
 "salas"
 ];
 
@@ -70,9 +71,9 @@ var blocks = [
 {
     "name": "nome",
     "code": "codigo",
-    "size": "capacidade",
     "latitude": "latitude",
-    "longitude": "longitude"
+    "longitude": "longitude",
+    "sector_code": "setorCod"
 },function(x){
     x.restrita = !x.restrita;
     x.localizacao = {lat:x.latitude, lng: x.longitude};
@@ -80,10 +81,138 @@ var blocks = [
     delete x.longitude;
     return x;
 },
-"*",
-"blocks",
+//SELECT
+"   blocks.name as name,\
+    blocks.code as code,\
+    blocks.latitude as latitude,\
+    blocks.longitude as longitude,\
+    sectors.code as sector_code\
+",
+//FROM
+"   blocks\
+    INNER JOIN\
+    sectors ON blocks.sector_id=sectors.id\
+",
+//SAVE FILE HAS
 "blocos"
 ];
 
-exports.tables = [rooms, blocks];
+var professors = [
+{
+    "name": "nome",
+    "code": "codigo",
+    "email": "email",
+    "web": "website",
+    "department_code": "departamentoCod"
+},function(x){
+    return x;
+},
+//SELECT
+"   professors.name as name,\
+    professors.code as code,\
+    departments.code as department_code\
+",
+//FROM
+"   professors\
+    INNER JOIN\
+    departments ON professors.department_id=departments.id\
+",
+//SAVE FILE HAS
+"professores" 
+];
+
+var departments = [
+{
+    "name": "nome",
+    "code": "codigo",
+    "sector_code": "setorCod"
+},function(x){
+    return x;
+},
+
+//SELECT
+"   departments.name as name,\
+    departments.code as code,\
+    sectors.code as sector_code\
+",
+//FROM
+"   departments\
+    INNER JOIN\
+    sectors ON departments.sector_id=sectors.id\
+",
+//SAVE FILE HAS
+"departamentos"
+];
+
+
+var sectors = [
+{
+    "email": "email",
+    "web": "website",
+    "name": "nome",
+    "code": "codigo"
+},function(x){
+    return x;
+},
+"*", //SELECT
+"sectors", //FROM
+"setores" //SAVE FILE HAS
+];
+
+var subjects = [
+{
+    "code": "codigo",
+    "name": "nome",
+    "hour_total": "carga_horaria",
+    "department_code": "departamentoCod",
+},function(x){
+    return x;
+},
+
+//SELECT
+"   subjects.code as code,\
+    subjects.name as name,\
+    subjects.hour_total as hour_total,\
+    departments.code as department_code\
+",
+
+//FROM
+"   subjects\
+    INNER JOIN\
+    departments ON subjects.department_id=departments.id\
+",
+
+"disciplinas" //SAVE FILE HAS
+];
+
+var courses = [
+{
+    "code": "codigo",
+    "name": "nome"
+},function(x){
+    return x;
+},
+
+//SELECT
+"   courses.code as code,\
+    courses.name as name\
+",
+
+"courses", //FROM
+"cursos" //SAVE FILE HAS
+];
+
+
+
+
+exports.tables = [
+    rooms,
+    blocks,
+    professors,
+    departments,
+    sectors,
+    subjects,
+    courses
+];
+
 exports.connectionString = connectionString;

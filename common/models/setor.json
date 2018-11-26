@@ -2,7 +2,7 @@
   "name": "Setor",
   "plural": "setores",
   "base": "Orgao",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -11,8 +11,20 @@
       "type": "string"
     },
     "email": {
+      "type": "string"
+    },
+    "nome": {
       "type": "string",
       "required": true
+    },
+    "codigo": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
     }
   },
   "validations": [],

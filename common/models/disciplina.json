@@ -29,7 +29,6 @@
     },
     "modalidade": {
       "type": "String",
-      "required": true,
       "length": 64,
       "precision": null,
       "scale": null,

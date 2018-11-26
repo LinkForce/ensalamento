@@ -139,4 +139,3 @@ exports.tables.forEach(function(table) {
   var promise_name = "get_"+table.loopback_name;
   exports[promise_name] = table.load()
 });
-

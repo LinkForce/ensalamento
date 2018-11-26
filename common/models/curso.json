@@ -2,11 +2,24 @@
   "name": "Curso",
   "plural": "cursos",
   "base": "Orgao",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
-  "properties": {},
+  "properties": {
+    "nome": {
+      "type": "string"
+    },
+    "codigo": {
+      "type": "string",
+      "id": true,
+      "required": true
+    },
+    "_id": {
+      "type": "number",
+      "generated": true
+    }
+  },
   "validations": [],
   "relations": {
     "bloco": {

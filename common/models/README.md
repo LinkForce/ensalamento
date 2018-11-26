@@ -43,7 +43,7 @@
   * codigo : **string** `Required`, `id`
   * carga_horaria : **number** `Required`, default=`0`
   * duracao : **string** `Required`, default=`semestral`
-  * modalidade : **string** `Required`, default=`presencial`
+  * modalidade : **string**  default=`presencial`
   * _id : **number** `generated`
 
 - ACLs
@@ -153,7 +153,10 @@
 ## Curso
 - Public: `True`
 - Description: This model extend `Orgao`
-- Attributes
+- Attributes `idInjection`=`false`
+  * nome : **string**
+  * codigo : **string** `Required`, `id`
+  * _id : **number** `generated`
 - ACLs
   * All permissions not specified is `DENY`
   * **$everyone** ROLE have all READ operations
@@ -182,9 +185,12 @@
 ## Setor
 - Public: `True`
 - Description: This model extend `Orgao`
-- Attributes
+- Attributes `idInjection`=`false`
   * website : **string**
-  * email : **string** `Required`
+  * email : **string**
+  * codigo : **string** `Required`, `id`
+  * _id : **number** `generated`
+  * nome : **string** `Required`
 - ACLs
   * All permissions not specified is `DENY`
   * **admin** ROLE have all EXECUTE, READ and WRITE operations

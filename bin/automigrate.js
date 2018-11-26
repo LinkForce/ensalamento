@@ -10,61 +10,51 @@ var ds = app.datasources.ensalamento;
 
 var lbTables = models.models;
 
+var LOG_CREATE = false;
+
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
-
-  async.waterfall([criaBloco,criaSala,criaUser,criaDisciplina, criaEquivalencia, criaRecursodesala, criaTipodesala], function(err) {
+  async.waterfall([
+    loadModelFromOldDB(old_db.get_salas, app.models.Sala, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_blocos, app.models.Bloco, LOG_CREATE),
+    criaUser,
+    criaDisciplina,
+    criaEquivalencia,
+    criaRecursodesala,
+    criaTipodesala,
+    loadModelFromOldDB(old_db.get_professores, app.models.Professor, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_departamentos, app.models.Departamento, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_setores, app.models.Setor, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_disciplinas, app.models.Disciplina, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE)
+  ],
+    function(err) {
     if (err) throw err;
     ds.disconnect();
   })
-
-
 });
 
 
-var LOG_CREATE = false;
 
-function criaBloco(cb){
-  // var blocos = [
-  //   {localizacao: '0,0', tamanho: 10, nome: "bloco1", codigo:"codigo1"},
-  //   {localizacao: '0,0', tamanho: 10, nome: "bloco2", codigo:"codigo2"}
-  // ];
-  old_db.get_blocos.then(blocos => {
-    async.each(blocos, function(bloco, callback) {
-      app.models.Bloco.create(bloco, function(err, model) {
-        callback(err);
-        if(LOG_CREATE) console.log('Created:', model);
+
+// Returns a function that populate a DB model with data loaded from
+// old database (see migrate-old-schema.js and load-old-dabase.js codes)
+function loadModelFromOldDB(oldDataAccess, model, create_log){
+  return function(cb){
+    oldDataAccess.then(data => {
+      async.each(data, function(instance, callback) {
+        if(create_log) console.log('Trying to insert:', instance);
+        model.create(instance, function(err, instanceCreated) {
+          callback(err);
+          if(create_log) console.log('Created:', instanceCreated);
+        });
+      }, function(err) {
+        if (err) throw err;
+        cb(err);
       });
-    }, function(err) {
-      if (err) throw err;
-      cb(err);
     });
-  });
-
+  }
 }
-
-
-function criaSala(cb){
-
-  // var salas = [
-  //   {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:false},
-  //   {localizacao: '41.12,-71.34', capacidade: 10, tipo:"teste", restrita:true}
-  // ];
-  
-  old_db.get_salas.then(salas => {
-    async.each(salas, function(sala, callback) {
-      app.models.Sala.create(sala, function(err, model) {
-        callback(err);
-        if(LOG_CREATE) console.log('Created:', model);
-      });
-    }, function(err) {
-      if (err) throw err;
-      cb(err);
-    });
-  });
-  
-}
-
 
 function criaRecursodesala(cb){
   var recursos = [
