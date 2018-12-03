@@ -12,6 +12,8 @@ var lbTables = models.models;
 
 var LOG_CREATE = false;
 
+// console.log(app.models.Curso.scopes.disciplinas.modelFrom);
+
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
   async.waterfall([
@@ -26,7 +28,10 @@ ds.automigrate(lbTables, function(err) {
     loadModelFromOldDB(old_db.get_departamentos, app.models.Departamento, LOG_CREATE),
     loadModelFromOldDB(old_db.get_setores, app.models.Setor, LOG_CREATE),
     loadModelFromOldDB(old_db.get_disciplinas, app.models.Disciplina, LOG_CREATE),
-    loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE)
+    loadModelFromOldDB(old_db.get_equivalenciasDisciplinas, app.models.Equivalenciadisciplina, LOG_CREATE),
+    loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE),
+
+    loadRelationsFromOldDB(old_db.get_cursoDisciplina, app.models.Curso, "disciplinas", LOG_CREATE),
   ],
     function(err) {
     if (err) throw err;
@@ -35,20 +40,18 @@ ds.automigrate(lbTables, function(err) {
 });
 
 
-
-
 // Returns a function that populate a DB model with data loaded from
 // old database (see migrate-old-schema.js and load-old-dabase.js codes)
 function loadModelFromOldDB(oldDataAccess, model, create_log){
   return function(cb){
     oldDataAccess.then(data => {
-      async.each(data, function(instance, callback) {
+      async.each(data, (instance, callback) => {
         if(create_log) console.log('Trying to insert:', instance);
-        model.create(instance, function(err, instanceCreated) {
+        model.upsert(instance, (err, instanceCreated) => {
           callback(err);
           if(create_log) console.log('Created:', instanceCreated);
         });
-      }, function(err) {
+      }, (err) => {
         if (err) throw err;
         cb(err);
       });
@@ -56,13 +59,59 @@ function loadModelFromOldDB(oldDataAccess, model, create_log){
   }
 }
 
+
+
+function addRelationBetweenModels(model, modelRelationName,
+                                      relationInstance, cb, create_log){
+  var query = {where: {}};
+  query.where[relationInstance.pkey_name] = relationInstance.pkeys[0];
+
+  model.findOne(query, (err,data) => {
+    if (err) throw err;
+    data[modelRelationName].add(relationInstance.pkeys[1], (err,data) => {
+      cb(err,data);
+    });
+  });
+}
+
+// Returns a function that populate a relation DB model with data loaded from
+// old database (see migrate-old-schema.js and load-old-dabase.js codes)
+function loadRelationsFromOldDB(oldDataAccess, model, modelRelationName, create_log){
+  return function(cb){
+    oldDataAccess.then(data => {
+      async.each(data, (instance, callback) => {
+        
+        if(create_log){
+          console.log('Trying to insert relation on ', 
+            modelRelationName,':', instance
+          );
+        }
+
+        addRelationBetweenModels(
+          model,
+          modelRelationName,
+          instance,
+          (err, instanceCreated) => {
+            callback(err);
+            if(create_log) console.log('Created:', instanceCreated);
+        });
+
+      }, (err) => {
+        if (err) throw err;
+        cb(err);
+      });
+    });
+  }
+}
+
+
 function criaRecursodesala(cb){
   var recursos = [
     {descricao: 'recurso1'},
     {descricao: 'recurso2'}
   ];
   async.each(recursos, function(recurso, callback) {
-    app.models.Recursodesala.create(recurso, function(err, model) {
+    app.models.Recursodesala.upsert(recurso, function(err, model) {
       callback(err);
       if(LOG_CREATE) console.log('Created:', model);
     });
@@ -78,7 +127,7 @@ function criaTipodesala(cb){
     {nome: 'tipo2'}
   ];
   async.each(tipos, function(tipo, callback) {
-    app.models.Tipodesala.create(tipo, function(err, model) {
+    app.models.Tipodesala.upsert(tipo, function(err, model) {
       callback(err);
       if(LOG_CREATE) console.log('Created:', model);
     });
@@ -90,7 +139,7 @@ function criaTipodesala(cb){
 
 
 function criaUser(cb){
-  app.models.Secretario.create([
+  app.models.Secretario.replaceOrCreate([
     {username: 'admin', email: 'admin@admin.com', password: '123mudar'},
     {username: 'secretario1', email: 'secretario1@secretario.com', password: '123mudar'},
     {username: 'secretario2', email: 'secretario2@secretario.com', password: '123mudar'}
@@ -127,13 +176,13 @@ function criaEquivalencia(cb){
 
 function criaDisciplina(cb){
   var disciplinas = [
-    {"codigo": "d1","carga_horaria": 0,"duracao": "semestral","modalidade": "presencial"},
-    {"codigo": "d2","carga_horaria": 1,"duracao": "semestral","modalidade": "distância"},
-    {"codigo": "d3","carga_horaria": 2,"duracao": "anual","modalidade": "presencial"}
+    {"codigo": "d1", "nome": "disciplina1", "carga_horaria": 0,"duracao": "semestral","modalidade": "presencial"},
+    {"codigo": "d2", "nome": "disciplina2", "carga_horaria": 1,"duracao": "semestral","modalidade": "distância"},
+    {"codigo": "d3", "nome": "disciplina3", "carga_horaria": 2,"duracao": "anual","modalidade": "presencial"}
   ];
 
   async.each(disciplinas, function(disciplina, callback) {
-    app.models.Disciplina.create(disciplina, function(err, model) {
+    app.models.Disciplina.upsert(disciplina, function(err, model) {
       if (err) throw err;
       callback(err);
       if(LOG_CREATE) console.log('Created:', model);
@@ -142,6 +191,5 @@ function criaDisciplina(cb){
     if (err) throw err;
     cb(err);
   });
-
 
 }
