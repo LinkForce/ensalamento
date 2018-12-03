@@ -41,6 +41,7 @@
 - Public: `True`
 - Attributes `idInjection`=`false`
   * codigo : **string** `Required`, `id`
+  * nome : **string**
   * carga_horaria : **number** `Required`, default=`0`
   * duracao : **string** `Required`, default=`semestral`
   * modalidade : **string**  default=`presencial`

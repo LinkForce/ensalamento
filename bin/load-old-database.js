@@ -1,6 +1,7 @@
 var path = require("path");
 var fs = require("fs");
 
+var LOG_QUERIES = false;
 
 const { Client } = require('pg')
 
@@ -16,6 +17,7 @@ function load_data_from_db(columns, table_name){
   });
   client.connect()
   return new Promise( (resolve, reject) => {
+    if(LOG_QUERIES) console.log('SELECT '+columns+' FROM '+table_name);
     client.query('SELECT '+columns+' FROM '+table_name, (err, res) => {
       if (!err) {
         resolve(res);

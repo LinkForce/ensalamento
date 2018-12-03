@@ -26,7 +26,8 @@
 //            On automigrate, this will be used to access data with a promisse.
 //            For instance, get_blocos.then ...
 
-var connectionString = 'postgresql://bhm15:pass@localhost:5432/ensalamento';
+
+var connectionString = 'postgresql://user:password@localhost:5432/ensalamento';
 
 var rooms = [
 {
@@ -67,6 +68,9 @@ var rooms = [
 "salas"
 ];
 
+
+
+
 var blocks = [
 {
     "name": "nome",
@@ -97,6 +101,9 @@ var blocks = [
 "blocos"
 ];
 
+
+
+
 var professors = [
 {
     "name": "nome",
@@ -120,6 +127,9 @@ var professors = [
 //SAVE FILE HAS
 "professores" 
 ];
+
+
+
 
 var departments = [
 {
@@ -145,6 +155,8 @@ var departments = [
 ];
 
 
+
+
 var sectors = [
 {
     "email": "email",
@@ -158,6 +170,9 @@ var sectors = [
 "sectors", //FROM
 "setores" //SAVE FILE HAS
 ];
+
+
+
 
 var subjects = [
 {
@@ -185,6 +200,33 @@ var subjects = [
 "disciplinas" //SAVE FILE HAS
 ];
 
+
+
+var subjects_equivalences = [
+{
+    "code1": "disciplina1",
+    "code2": "disciplina2",
+},function(x){
+    return x;
+},
+
+//SELECT
+"   s1.code as code1,\
+    s2.code as code2\
+",
+
+//FROM
+"   subjects as s1\
+    INNER JOIN\
+    subjects as s2 ON s1.subject_id=s2.subject_id\
+    where s1.code!=s2.code\
+", 
+
+"equivalenciasDisciplinas" //SAVE FILE HAS
+];
+
+
+
 var courses = [
 {
     "code": "codigo",
@@ -204,6 +246,58 @@ var courses = [
 
 
 
+////////////////////////////////////////////////////////////////////////////////
+/*
+On cases of data relations (necessary to "N to N" relations), its needed
+to exist a special processing.
+The structure must follow the previous documentation, and the function
+that transform the data after load from DB must transform all elements from
+query in the follow format:
+[
+    {
+        pkeys = ["valueOfPrimaryKey1", "valueOfPrimaryKey2"]
+        pkey_name: "nameOfPrimaryKeyColumn"
+    },
+    ...
+
+]
+
+where valueOfPrimaryKey1 and valueOfPrimaryKey2 represents the values of
+primary keys of the models relationed. And pkey_name must be the name of
+column relationed with "valueOfPrimaryKey1".
+
+The column name of "valueOfPrimaryKey2" value is not needed because the 
+Loopback API will discover automatically. 
+*/
+
+var subjects_courses_relation = [
+{
+    "coursecode": "cursoCod",
+    "subjectcode": "disciplinaCod",
+},function(x){
+    x.pkeys = [x.cursoCod, x.disciplinaCod];
+    delete x.cursoCod;
+    delete x.disciplinaCod;
+    x.pkey_name = "codigo";
+    return x;
+},
+
+
+//SELECT
+"   courses.code as coursecode,\
+    subjects.code as subjectcode\
+",
+
+//FROM
+"   courses_subjects\
+    INNER JOIN\
+    courses on courses.id=courses_subjects.course_id\
+    INNER JOIN\
+    subjects on subjects.id=courses_subjects.subject_id\
+", 
+
+"cursoDisciplina" //SAVE FILE HAS
+];
 
 exports.tables = [
     rooms,
@@ -212,7 +306,10 @@ exports.tables = [
     departments,
     sectors,
     subjects,
-    courses
+    courses,
+    subjects_equivalences,
+    subjects_courses_relation
 ];
+
 
 exports.connectionString = connectionString;
