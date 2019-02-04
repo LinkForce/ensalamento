@@ -57,7 +57,13 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "*"
-    }
+  },
+  {
+    "principalType": "ROLE",
+    "principalId": "comissao",
+    "permission": "ALLOW",
+    "property": "*"
+  }
   ],
   "methods": {}
 }

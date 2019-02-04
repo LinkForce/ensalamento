@@ -51,6 +51,12 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "*"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "secretario_dpto",
+      "permission": "ALLOW",
+      "property": "*"
     }
   ],
   "methods": {}

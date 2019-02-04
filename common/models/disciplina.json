@@ -91,6 +91,7 @@
   ],
   "methods": {
     "prototype.addEquivalencia": {
+     "description": "add description",
       "accepts": [
         {
           "arg": "disciplina_eq_code",
@@ -98,15 +99,16 @@
         }
       ],
       "returns": {
-        "arg": "data",
-        "type": "string"
+        "type":"object",
+        "root": true
       },
       "http": {
         "verb": "post",
-        "path": "/addEquivalencia"
+        "path": "/equivalencias"
       }
     },
     "prototype.getEquivalencias": {
+      "description": "add description",
       "accepts": [],
       "returns": {
         "arg": "data",
@@ -114,10 +116,11 @@
       },
       "http": {
         "verb": "get",
-        "path": "/getEquivalencias"
+        "path": "/equivalencias"
       }
     },
     "prototype.deleteEquivalencia": {
+      "description": "add description",
       "accepts": [
         {
           "arg": "disciplina_eq_code",
@@ -125,12 +128,12 @@
         }
       ],
       "returns": {
-        "arg": "data",
-        "type": "string"
+          "type":"object",
+          "root": true
       },
       "http": {
-        "verb": "post",
-        "path": "/deleteEquivalencia"
+        "verb": "delete",
+        "path": "/equivalencias"
       }
     }
   }

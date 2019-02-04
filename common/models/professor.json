@@ -9,8 +9,8 @@
   "properties": {
     "codigo": {
       "type": "string",
-      "required": true,
-      "id": true
+      "id": true,
+      "required": true
     },
     "nome": {
       "type": "string",

@@ -93,6 +93,7 @@
       "principalId": "$owner",
       "permission": "ALLOW"
     }
+    
   ],
   "methods": {}
 }

@@ -1,0 +1,103 @@
+{
+  "name": "Usuario",
+  "plural": "usuarios",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "restricao": {
+      "type": "string",
+      "default": "change_password"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "secretario": {
+        "type": "embedsOne",
+        "model": "Secretario",
+        "property": "secretario"
+    }
+  },
+  "acls": [
+      {
+          "principalType": "ROLE",
+          "principalId": "$everyone",
+          "permission": "DENY",
+          "property": "*"
+      },
+      {
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+      }
+  ],
+  "methods": {
+      "prototype.setRole": {
+        "description": "Assign a role to a Usuario",
+        "accepts": [
+            {
+              "arg": "role_name",
+              "type": "string",
+              "required": true
+            }
+        ],
+        "returns": {
+            "type":"object",
+            "root": true
+        },
+        "http": {
+            "verb": "post",
+            "path": "/role"
+        }
+      },
+      "prototype.getRole": {
+       "description": "Get the role Assigned to a Usuario",
+       "accepts": [],
+       "returns": {
+         "arg": "role",
+         "type": "string"
+       },
+       "http": {
+         "verb": "get",
+         "path": "/role"
+       }
+    },
+    "prototype.updateRole": {
+      "description": "Replace an existing model instance or insert a new one into the data source",
+      "accepts": [
+          {
+            "arg": "role_name",
+            "type": "string",
+            "required": true
+          }
+      ],
+      "returns": {
+          "type":"object",
+          "root": true
+      },
+      "http": {
+          "verb": "put",
+          "path": "/role"
+      }
+    },
+    "prototype.deleteRole": {
+        "description": "Delete a model instance by {{id}} from the data source.",
+        "accepts": [],
+        "returns": {
+            "type":"object",
+            "root": true
+        },
+        "http": {
+          "verb": "delete",
+          "path": "/role"
+        }
+     }
+  }
+}

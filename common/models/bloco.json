@@ -60,6 +60,12 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "*"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "secretario_setor",
+      "permission": "ALLOW",
+      "property": "*"
     }
   ],
   "methods": {}

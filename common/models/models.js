@@ -3,7 +3,8 @@
 Models are used in a lot of script, so we created this file to unify.
 **/
 var models = [
-        'User',
+        'Usuario',
+        'Secretario',
         'AccessToken',
         'ACL',
         'RoleMapping',
@@ -19,7 +20,6 @@ var models = [
         'DisciplinaRecursodesala',
         'Tipodesala',
         'Orgao',
-        'Secretario',
         'Setor',
         'Departamento',
         'Curso',
