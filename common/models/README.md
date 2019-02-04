@@ -103,8 +103,8 @@
 ## Recursodesala
 - Public: `False`
 - Description: This model contains the resources listage of rooms.
-               In future, this can be use to allocate a room to disciplinas. 
-               In this case, a disciplina must gain a room that meet this 
+               In future, this can be use to allocate a room to disciplinas.
+               In this case, a disciplina must gain a room that meet this
                resources needs.
 - Attributes
   * descricao : **string** `Required`
@@ -121,8 +121,8 @@
 ## Tipodesala
 - Public: `False`
 - Description: This model contains the types of rooms listage.
-               In future, this can be use to allocate a room to disciplinas. 
-               In this case, a disciplina must gain a room that meet this 
+               In future, this can be use to allocate a room to disciplinas.
+               In this case, a disciplina must gain a room that meet this
                room type need.
 - Attributes `idInjection`=`false`
   * nome : **string** `Required`, default=`'normal'`, `id`
@@ -201,14 +201,13 @@
   * Has Many : **Curso** as `setorCod`
 
 ## Secretario
-- Public: `True`
-- Description: This model extend `User`
+- Public: `False`
 - Attributes
   * vinculo : **string** `Required`, default=`'departamento'`
-  * descricao : **string**, default=`'change_password'`
-    * Used for restrict actions of user in some cases. For instance, when user
-      has he first login, he must change the password.
-      
+- Relations
+  * Has Many : **Orgao** as `secretarioId`
+  * Has Many : **Sala** as `ownerId`
+
 - ACLs
   * All permissions not specified is `DENY`
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
@@ -228,3 +227,16 @@
 - Relations
   * Belongs To : **Departamento** as `departamentoCod`
   * Has and Belongs To Many : **Turma**
+
+  ## Usuario
+  - Public: `True`
+  - Attributes `
+    * nome : **string** `Required`
+    * restricao : **string**, default=`'change_password'`
+      * Used for restrict actions of user in some cases. For instance, when user
+        has he first login, he must change the password.
+  - ACLs
+    * All permissions not specified is `DENY`
+    * **admin** ROLE have all EXECUTE, READ and WRITE operations
+  - Relations
+    * Embeds One : **Secretario** as `secretario`

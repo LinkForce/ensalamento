@@ -13,10 +13,6 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "ensalamento",
-    "public": false
-  },
   "AccessToken": {
     "dataSource": "ensalamento",
     "public": false
@@ -74,7 +70,7 @@
   },
   "Secretario": {
     "dataSource": "ensalamento",
-    "public": true
+    "public": false
   },
   "Setor": {
     "dataSource": "ensalamento",
@@ -89,6 +85,10 @@
     "public": true
   },
   "Professor": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "Usuario": {
     "dataSource": "ensalamento",
     "public": true
   }

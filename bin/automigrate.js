@@ -19,9 +19,10 @@ ds.automigrate(lbTables, function(err) {
   async.waterfall([
     loadModelFromOldDB(old_db.get_salas, app.models.Sala, LOG_CREATE),
     loadModelFromOldDB(old_db.get_blocos, app.models.Bloco, LOG_CREATE),
-    criaUser,
-    criaDisciplina,
-    criaEquivalencia,
+    criaUsuario,
+    criaSecretario,
+    criaRoles,
+    atribuiRoles,
     criaRecursodesala,
     criaTipodesala,
     loadModelFromOldDB(old_db.get_professores, app.models.Professor, LOG_CREATE),
@@ -29,8 +30,8 @@ ds.automigrate(lbTables, function(err) {
     loadModelFromOldDB(old_db.get_setores, app.models.Setor, LOG_CREATE),
     loadModelFromOldDB(old_db.get_disciplinas, app.models.Disciplina, LOG_CREATE),
     loadModelFromOldDB(old_db.get_equivalenciasDisciplinas, app.models.Equivalenciadisciplina, LOG_CREATE),
-    loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE),
 
+    loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE),
     loadRelationsFromOldDB(old_db.get_cursoDisciplina, app.models.Curso, "disciplinas", LOG_CREATE),
   ],
     function(err) {
@@ -80,9 +81,9 @@ function loadRelationsFromOldDB(oldDataAccess, model, modelRelationName, create_
   return function(cb){
     oldDataAccess.then(data => {
       async.each(data, (instance, callback) => {
-        
+
         if(create_log){
-          console.log('Trying to insert relation on ', 
+          console.log('Trying to insert relation on ',
             modelRelationName,':', instance
           );
         }
@@ -137,34 +138,106 @@ function criaTipodesala(cb){
   });
 }
 
+function criaSecretario(cb){
+    var secretarios = [
+        {email:'secretario_curso@secretario.com',vinculo: 'curso'},
+        {email:'secretario_dpto@secretario.com',vinculo: 'departamento'},
+        {email:'secretario_setor@secretario.com',vinculo: 'setor'}
+    ]
 
-function criaUser(cb){
-  app.models.Secretario.replaceOrCreate([
-    {username: 'admin', email: 'admin@admin.com', password: '123mudar'},
-    {username: 'secretario1', email: 'secretario1@secretario.com', password: '123mudar'},
-    {username: 'secretario2', email: 'secretario2@secretario.com', password: '123mudar'}
-  ],function(err, users) {
-    if (err) throw err;
-    if(LOG_CREATE) console.log('Created users:', users);
-    app.models.Role.create({
-      name: 'admin'
-    }, function(err, role) {
+    async.each(secretarios, function(secretario, callback) {
+        app.models.Usuario.findOne({where:{email: secretario.email}}, function(err, user){
+            user.secretario.create( {vinculo: secretario.vinculo},function(err,secre) {
+                if (err) throw err;
+                if(LOG_CREATE) console.log('Created Secretario:', secre);
+                callback(err);
+            });
+        });
+    }, function(err) {
       if (err) throw err;
-      if(LOG_CREATE) console.log('Created role:', role);
-      role.principals.create({
-        principalType: app.models.RoleMapping.USER,
-        principalId: users[0].id
-      }, function(err, principal) {
-        if (err) throw err;
-        if(LOG_CREATE) console.log('Assign admin Role to initial User:', users[0].email);
-        cb(err);
-      });
+      cb(err);
     });
-  });
+
+}
+
+function criaRoles(cb){
+    var roles = [
+        {name: 'admin'},
+        {name: 'comissao'},
+        {name: 'secretario_setor'},
+        {name: 'secretario_dpto'},
+        {name: 'secretario_curso'}
+    ];
+
+    async.each(roles, function(role, callback) {
+        app.models.Role.create(role, function(err, model) {
+            if (err) throw err;
+            if(LOG_CREATE) console.log('Created role:', model);
+                callback(err);
+
+        });
+    }, function(err) {
+      if (err) throw err;
+      cb(err);
+    });
+
+}
+
+
+function atribuiRoles(cb){
+    var atribuicoes = [
+        {email:'admin@admin.com',role: 'admin'},
+        {email:'comissao@comissao.com',role: 'comissao'},
+        {email:'secretario_setor@secretario.com',role: 'secretario_setor'},
+        {email:'secretario_dpto@secretario.com',role: 'secretario_dpto'},
+        {email:'secretario_curso@secretario.com',role: 'secretario_curso'}
+    ]
+
+
+    async.each(atribuicoes, function(atribuicao, callback) {
+        app.models.Usuario.findOne({where:{email: atribuicao.email}}, function(err, user){
+            user.setRole(atribuicao.role,function(err,data){
+                if (err) throw err;
+                if(LOG_CREATE) console.log('Assign '+atribuicao.role+ ' Role to initial User:', user);
+                callback(err);
+            });
+        });
+    }, function(err) {
+      if (err) throw err;
+      cb(err);
+    });
+}
+
+
+
+
+function criaUsuario(cb){
+    var usuarios = [
+      {username: 'admin',nome:'Administrador do Sistema', email: 'admin@admin.com', password: '123mudar'},
+      {username: 'comissao',nome:'Comissão de Ensalamento', email: 'comissao@comissao.com', password: '123mudar'},
+      {username: 'secretario_setor',nome:'Secretário do Setor', email: 'secretario_setor@secretario.com', password: '123mudar'},
+      {username: 'secretario_dpto',nome:'Secretário de Departamento,', email: 'secretario_dpto@secretario.com', password: '123mudar'},
+      {username: 'secretario_curso',nome:'Secretário de Curso', email: 'secretario_curso@secretario.com', password: '123mudar'}
+    ];
+
+
+    async.each(usuarios, function(usuario, callback) {
+
+      app.models.Usuario.create(usuario, function(err, model) {
+        if (err) throw err;
+        callback(err);
+        if(LOG_CREATE) console.log('Created user:', model);
+      });
+
+    }, function(err) {
+      if (err) throw err;
+      cb(err);
+    });
+
 }
 
 function criaEquivalencia(cb){
-  app.models.Disciplina.find({id:1}, function(err, disc){
+  app.models.Disciplina.find({where:{id:1}}, function(err, disc){
     disc[0].addEquivalencia(2,function(err,data){
       if (err) throw err;
       if(LOG_CREATE) console.log('Created Equivalenciadisciplina:', disc);
