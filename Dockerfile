@@ -10,9 +10,9 @@ ENV WORKSPACE /app
 RUN mkdir -p $WORKSPACE
 
 # Install apt-utils to prevent warning messages
-RUN apt-get -y update -qq && apt-get install -y -qq apt-utils git
+RUN apt-get -qq update -y && apt-get -qq install -y apt-utils git
 # Install necessary libs to compile and run ensalador
-RUN apt-get install -y -qq cmake libstdc++6 libyaml-cpp-dev libboost-all-dev --no-install-recommends
+RUN apt-get -qq install -y cmake libstdc++6 libyaml-cpp-dev libboost-all-dev --no-install-recommends
 
 RUN git clone --quiet https://github.com/saebyn/munkres-cpp.git /tmp/munkres-cpp && cd /tmp/munkres-cpp && mkdir build && cd build && cmake .. && make && make install && cd /  && rm -rf /tmp/munkres-cpp
 
