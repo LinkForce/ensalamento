@@ -91,7 +91,6 @@
   ],
   "methods": {
     "prototype.addEquivalencia": {
-     "description": "add description",
       "accepts": [
         {
           "arg": "disciplina_eq_code",
@@ -99,28 +98,28 @@
         }
       ],
       "returns": {
-        "type":"object",
+        "type": "object",
         "root": true
       },
+      "description": "add description",
       "http": {
         "verb": "post",
         "path": "/equivalencias"
       }
     },
     "prototype.getEquivalencias": {
-      "description": "add description",
       "accepts": [],
       "returns": {
         "arg": "data",
         "type": "string"
       },
+      "description": "add description",
       "http": {
         "verb": "get",
         "path": "/equivalencias"
       }
     },
     "prototype.deleteEquivalencia": {
-      "description": "add description",
       "accepts": [
         {
           "arg": "disciplina_eq_code",
@@ -128,9 +127,10 @@
         }
       ],
       "returns": {
-          "type":"object",
-          "root": true
+        "type": "object",
+        "root": true
       },
+      "description": "add description",
       "http": {
         "verb": "delete",
         "path": "/equivalencias"

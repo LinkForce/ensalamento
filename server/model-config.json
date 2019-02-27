@@ -91,5 +91,13 @@
   "Usuario": {
     "dataSource": "ensalamento",
     "public": true
+  },
+  "Horario": {
+    "dataSource": "ensalamento",
+    "public": true
+  },
+  "Ensalamento": {
+    "dataSource": "ensalamento",
+    "public": true
   }
 }

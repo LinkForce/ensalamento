@@ -7,8 +7,8 @@
     "validateUpsert": true
   },
   "properties": {
-    "horarios": {
-      "type": "date",
+    "codigo": {
+      "type": "string",
       "required": true
     },
     "data_inicio": {

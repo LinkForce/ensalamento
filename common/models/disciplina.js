@@ -23,7 +23,6 @@ module.exports = function(Disciplina) {
       
       // Filter only the ids of equivalents courses
       // The id can be on disciplina1 or disciplina2 columns
-      // console.log(eq[0].disciplina1.toString(), eq[0].disciplina2.toString());
       var ret = eq.map(function(x){
 
         var codigoDisciplina1 = x.__data.disciplina1;
