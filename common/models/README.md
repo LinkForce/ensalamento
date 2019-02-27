@@ -21,6 +21,7 @@
   * Has and Belongs To Many : **Recursodesala**
   * Belongs to : **Tipodesala** as `tipo`
   * Belongs to : **Secretario** as `ownerId`
+  * Has Many : **Horario** as `horarios`
 
 ## Bloco
 - Public: `True`
@@ -83,13 +84,14 @@
   * **$everyone** ROLE have all READ operations
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
+  * Has and Belongs To Many : **Horario** as horarios
   * `Model Disciplina has a relation Has Many on this`
 
 ## Turma
 - Public: `True`
 - Description: This model extend `Evento`
 - Attributes
-  * horarios : **date** `Required`
+  * codigo : **string** `Required`
   * data_inicio : **date** `Required`
   * data_fim : **date** `Required`
 - ACLs
@@ -225,12 +227,12 @@
   * All permissions not specified is `DENY`
   * **admin** ROLE have all EXECUTE, READ and WRITE operations
 - Relations
-  * Belongs To : **Departamento** as `departamentoCod`
+  * Belongs To : **Departamento** as `departamento`
   * Has and Belongs To Many : **Turma**
 
   ## Usuario
   - Public: `True`
-  - Attributes `
+  - Attributes
     * nome : **string** `Required`
     * restricao : **string**, default=`'change_password'`
       * Used for restrict actions of user in some cases. For instance, when user
@@ -240,3 +242,31 @@
     * **admin** ROLE have all EXECUTE, READ and WRITE operations
   - Relations
     * Embeds One : **Secretario** as `secretario`
+    * Has Many : **Ensalamento** as `ensalamentos`
+  
+  ## Horario
+  - Public: `True`
+  - Attributes 
+    * dia : **number** `Required`
+    * horario_inicial : **number** `Required`
+    * horario_final : **number** `Required`
+    * livre : **boolean** `Required`
+    * motivo : **string**
+  - ACLs
+    * All permissions not specified is `DENY`
+    * **$everyone** ROLE have all READ operations
+    * **admin** ROLE have all EXECUTE, READ and WRITE operations
+  - Relations
+    * Belongs To : **Sala** as `sala`
+    * Belongs To : **Ensalamento** as `ensalamento`
+  
+  ## Ensalamento
+  - Public: `True`
+  - Attributes
+  - ACLs
+    * All permissions not specified is `DENY`
+    * **$everyone** ROLE have all READ operations
+    * **admin** ROLE have all EXECUTE, READ and WRITE operations
+  - Relations
+    * Has Many : **Horario** as `horarios`
+    * Belongs To : **Usuario** as `usuario`

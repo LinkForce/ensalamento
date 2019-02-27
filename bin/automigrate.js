@@ -12,8 +12,6 @@ var lbTables = models.models;
 
 var LOG_CREATE = false;
 
-// console.log(app.models.Curso.scopes.disciplinas.modelFrom);
-
 ds.automigrate(lbTables, function(err) {
   if (err) throw err;
   async.waterfall([
@@ -25,13 +23,16 @@ ds.automigrate(lbTables, function(err) {
     atribuiRoles,
     criaRecursodesala,
     criaTipodesala,
+    criaEnsalamento,
+    criaTurmas,
+    criaHorarios,
     loadModelFromOldDB(old_db.get_professores, app.models.Professor, LOG_CREATE),
     loadModelFromOldDB(old_db.get_departamentos, app.models.Departamento, LOG_CREATE),
     loadModelFromOldDB(old_db.get_setores, app.models.Setor, LOG_CREATE),
     loadModelFromOldDB(old_db.get_disciplinas, app.models.Disciplina, LOG_CREATE),
     loadModelFromOldDB(old_db.get_equivalenciasDisciplinas, app.models.Equivalenciadisciplina, LOG_CREATE),
-
     loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE),
+    
     loadRelationsFromOldDB(old_db.get_cursoDisciplina, app.models.Curso, "disciplinas", LOG_CREATE),
   ],
     function(err) {
@@ -44,7 +45,7 @@ ds.automigrate(lbTables, function(err) {
 // Returns a function that populate a DB model with data loaded from
 // old database (see migrate-old-schema.js and load-old-dabase.js codes)
 function loadModelFromOldDB(oldDataAccess, model, create_log){
-  return function(cb){
+  return (cb) => {
     oldDataAccess.then(data => {
       async.each(data, (instance, callback) => {
         if(create_log) console.log('Trying to insert:', instance);
@@ -105,6 +106,97 @@ function loadRelationsFromOldDB(oldDataAccess, model, modelRelationName, create_
   }
 }
 
+function criaTurmas(cb){
+  app.models.Turma.create([
+  {
+    "disciplinaCod":"CI055",
+    "data_inicio":"2019-02-26T13:58:50.150Z",
+    "data_fim":"2019-02-26T13:58:50.150Z",
+    "codigo": "t1",
+    "organizador":"a",
+    "vagas":49,
+    "ano":2019,
+    "periodo": 1
+  },
+  {
+    "disciplinaCod":"CI055",
+    "data_inicio":"2019-02-26T13:58:50.150Z",
+    "data_fim":"2019-02-26T13:58:50.150Z",
+    "codigo": "t2",
+    "organizador":"a",
+    "vagas":49,
+    "ano":2019,
+    "periodo": 1
+  },
+  {
+    "disciplinaCod":"CI055",
+    "data_inicio":"2019-02-26T13:58:50.150Z",
+    "data_fim":"2019-02-26T13:58:50.150Z",
+    "codigo": "t3",
+    "organizador":"a",
+    "vagas":49,
+    "ano":2019,
+    "periodo": 1
+  },
+  {
+    "disciplinaCod":"CI055",
+    "data_inicio":"2019-02-26T13:58:50.150Z",
+    "data_fim":"2019-02-26T13:58:50.150Z",
+    "codigo": "t4",
+    "organizador":"a",
+    "vagas":49,
+    "ano":2019,
+    "periodo": 1
+  },
+  ], function(err, turmas){
+    turmas[0].horarios.add(1);
+    turmas[1].horarios.add(2);
+    turmas[2].horarios.add(3);
+    turmas[3].horarios.add(4);
+    cb(err);
+  }.bind(this));
+}
+
+function criaHorarios(cb){
+  app.models.Horario.create([
+    {
+      livre: false,
+      dia:2,
+      horario_inicial:1,
+      horario_final:2,
+      ensalamentoId:1
+    },
+    {
+      livre: false,
+      dia:3,
+      horario_inicial:1,
+      horario_final:2,
+      ensalamentoId:1
+    },
+    {
+      livre: false,
+      dia:4,
+      horario_inicial:1,
+      horario_final:2,
+      ensalamentoId:1
+    },
+    {
+      livre: false,
+      dia:2,
+      horario_inicial:1,
+      horario_final:2,
+      ensalamentoId:1
+    }
+  ], function(err, horarios){
+    cb(err);
+  }.bind(this));
+}
+
+function criaEnsalamento(cb){
+  app.models.Ensalamento.create({}, function(err){
+    cb(err);
+  }.bind(this));
+}
 
 function criaRecursodesala(cb){
   var recursos = [

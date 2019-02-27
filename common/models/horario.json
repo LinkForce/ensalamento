@@ -1,34 +1,43 @@
 {
-  "name": "Evento",
-  "plural": "eventos",
+  "name": "Horario",
+  "plural": "horarios",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "organizador": {
-      "type": "string",
-      "required": true
-    },
-    "vagas": {
+    "dia": {
       "type": "number",
       "required": true
     },
-    "ano": {
+    "horario_inicial": {
       "type": "number",
       "required": true
     },
-    "periodo": {
-      "type": "string",
+    "horario_final": {
+      "type": "number",
       "required": true
+    },
+    "livre": {
+      "type": "boolean",
+      "required": true
+    },
+    "motivo": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "horarios": {
-      "type": "hasAndBelongsToMany",
-      "model": "Horario"
+    "sala": {
+      "type": "belongsTo",
+      "model": "Sala",
+      "foreignKey": "salaCode"
+    },
+    "ensalamento": {
+      "type": "belongsTo",
+      "model": "Ensalamento",
+      "foreignKey": "ensalamentoId"
     }
   },
   "acls": [

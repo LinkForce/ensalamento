@@ -19,85 +19,90 @@
   "validations": [],
   "relations": {
     "secretario": {
-        "type": "embedsOne",
-        "model": "Secretario",
-        "property": "secretario"
+      "type": "embedsOne",
+      "model": "Secretario",
+      "property": "secretario"
+    },
+    "ensalamentos": {
+      "type": "hasMany",
+      "model": "Ensalamento",
+      "foreignKey": "ensalamentoId"
     }
   },
   "acls": [
-      {
-          "principalType": "ROLE",
-          "principalId": "$everyone",
-          "permission": "DENY",
-          "property": "*"
-      },
-      {
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "*"
+    },
+    {
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "*"
-      }
+    }
   ],
   "methods": {
-      "prototype.setRole": {
-        "description": "Assign a role to a Usuario",
-        "accepts": [
-            {
-              "arg": "role_name",
-              "type": "string",
-              "required": true
-            }
-        ],
-        "returns": {
-            "type":"object",
-            "root": true
-        },
-        "http": {
-            "verb": "post",
-            "path": "/role"
-        }
-      },
-      "prototype.getRole": {
-       "description": "Get the role Assigned to a Usuario",
-       "accepts": [],
-       "returns": {
-         "arg": "role",
-         "type": "string"
-       },
-       "http": {
-         "verb": "get",
-         "path": "/role"
-       }
-    },
-    "prototype.updateRole": {
-      "description": "Replace an existing model instance or insert a new one into the data source",
+    "prototype.setRole": {
       "accepts": [
-          {
-            "arg": "role_name",
-            "type": "string",
-            "required": true
-          }
+        {
+          "arg": "role_name",
+          "type": "string",
+          "required": true
+        }
       ],
       "returns": {
-          "type":"object",
-          "root": true
+        "type": "object",
+        "root": true
       },
+      "description": "Assign a role to a Usuario",
       "http": {
-          "verb": "put",
-          "path": "/role"
+        "verb": "post",
+        "path": "/role"
+      }
+    },
+    "prototype.getRole": {
+      "accepts": [],
+      "returns": {
+        "arg": "role",
+        "type": "string"
+      },
+      "description": "Get the role Assigned to a Usuario",
+      "http": {
+        "verb": "get",
+        "path": "/role"
+      }
+    },
+    "prototype.updateRole": {
+      "accepts": [
+        {
+          "arg": "role_name",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "returns": {
+        "type": "object",
+        "root": true
+      },
+      "description": "Replace an existing model instance or insert a new one into the data source",
+      "http": {
+        "verb": "put",
+        "path": "/role"
       }
     },
     "prototype.deleteRole": {
-        "description": "Delete a model instance by {{id}} from the data source.",
-        "accepts": [],
-        "returns": {
-            "type":"object",
-            "root": true
-        },
-        "http": {
-          "verb": "delete",
-          "path": "/role"
-        }
-     }
+      "accepts": [],
+      "returns": {
+        "type": "object",
+        "root": true
+      },
+      "description": "Delete a model instance by {{id}} from the data source.",
+      "http": {
+        "verb": "delete",
+        "path": "/role"
+      }
+    }
   }
 }

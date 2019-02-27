@@ -36,16 +36,18 @@ COPY --chown=node:node yarn.lock .
 # RUN yarn install --production --frozen-lockfile --silent --non-interactive
 RUN  yarn install --frozen-lockfile --silent --non-interactive
 
-ENV PATH=$PATH:/app/node_modules/.bin
-EXPOSE 3000
-
+## Compile ensalor here
+RUN mkdir /app/bin/ &&  mkdir /app/bin/ensalador
+COPY --chown=node:node bin/ensalador /app/bin/ensalador
+RUN cd /app/bin/ensalador && cmake . && make && cd /app
 
 
 # Bundle app source
 COPY --chown=node:node . .
 
-## Compile ensalor here
-# cd /app/bin/ensalador && cmake . && make && make clean && cd /app
+
+ENV PATH=$PATH:/app/node_modules/.bin
+EXPOSE 3000
 
 ENTRYPOINT ["/app/ensalamento-entrypoint.sh"]
 

@@ -1,34 +1,23 @@
 {
-  "name": "Evento",
-  "plural": "eventos",
+  "name": "Ensalamento",
+  "plural": "ensalamentos",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
-  "properties": {
-    "organizador": {
-      "type": "string",
-      "required": true
-    },
-    "vagas": {
-      "type": "number",
-      "required": true
-    },
-    "ano": {
-      "type": "number",
-      "required": true
-    },
-    "periodo": {
-      "type": "string",
-      "required": true
-    }
-  },
+  "properties": {},
   "validations": [],
   "relations": {
     "horarios": {
-      "type": "hasAndBelongsToMany",
-      "model": "Horario"
+      "type": "hasMany",
+      "model": "Horario",
+      "foreignKey": "ensalamentoId"
+    },
+    "usuario": {
+      "type": "belongsTo",
+      "model": "Usuario",
+      "foreignKey": "usuarioId"
     }
   },
   "acls": [
@@ -51,5 +40,18 @@
       "property": "*"
     }
   ],
-  "methods": {}
+  "methods": {
+    "ensalar": {
+      "accepts": [],
+      "returns": {
+        "type": "object",
+        "root": true
+      },
+      "description": "ensala todos os eventos",
+      "http": {
+        "verb": "post",
+        "path": "/ensalar"
+      }
+    }
+  }
 }

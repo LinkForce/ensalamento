@@ -66,6 +66,14 @@
       "type": "belongsTo",
       "model": "Secretario",
       "foreignKey": "ownerId"
+    },
+    "horarios": {
+      "type": "hasMany",
+      "model": "Horario",
+      "foreignKey": "salaId",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [
@@ -93,7 +101,6 @@
       "principalId": "$owner",
       "permission": "ALLOW"
     }
-    
   ],
   "methods": {}
 }
