@@ -1,3 +1,13 @@
+# Ensalamento-back
+
+## Getting Started
+
+```bash
+ git clone --recurse-submodules git@gitlab.c3sl.ufpr.br:ensalamento/ensalamento-back
+ cd ensalamento-back
+ docker-compose up
+ ```
+
 
 ## Prerequisite: install Node.js
 
