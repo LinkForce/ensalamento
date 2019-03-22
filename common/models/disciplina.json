@@ -101,7 +101,7 @@
         "type": "object",
         "root": true
       },
-      "description": "add description",
+      "description": "Create a new equivalence of the model and persist it into the data source",
       "http": {
         "verb": "post",
         "path": "/equivalencias"
@@ -113,7 +113,11 @@
         "arg": "data",
         "type": "string"
       },
-      "description": "add description",
+      "returns": {
+        "type": "object",
+        "root": true
+      },
+      "description": "Find all equivalences of a model matched.",
       "http": {
         "verb": "get",
         "path": "/equivalencias"
@@ -130,7 +134,7 @@
         "type": "object",
         "root": true
       },
-      "description": "add description",
+      "description": "Delete a equivalence of model instance by {{id}} from the data source.",
       "http": {
         "verb": "delete",
         "path": "/equivalencias"
