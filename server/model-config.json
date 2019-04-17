@@ -99,5 +99,17 @@
   "Ensalamento": {
     "dataSource": "ensalamento",
     "public": true
+  },
+  "FileUpload": {
+    "dataSource": "db",
+    "public": true
+  },
+  "FileUploadError": {
+    "dataSource": "db",
+    "public": true
+  },
+  "container": {
+    "dataSource": "container",
+    "public": true
   }
 }

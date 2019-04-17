@@ -1,0 +1,36 @@
+{
+  "name": "FileUpload",
+  "plural": "file-uploads",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "date": {
+      "type": "date",
+      "required": true,
+      "defaultFn": "now"
+    },
+    "fileType": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "errors": {
+      "type": "hasMany",
+      "model": "FileUploadError",
+      "foreignKey": "fileUploadId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

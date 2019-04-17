@@ -12,5 +12,11 @@
   "password": "${POSTGRES_PASSWORD}",
   "user":  "${POSTGRES_USER}",
   "ssl": false
- }
+ },
+  "container": {
+    "name": "container",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "tmp"
+    }
 }

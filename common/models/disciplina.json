@@ -110,10 +110,6 @@
     "prototype.getEquivalencias": {
       "accepts": [],
       "returns": {
-        "arg": "data",
-        "type": "string"
-      },
-      "returns": {
         "type": "object",
         "root": true
       },
