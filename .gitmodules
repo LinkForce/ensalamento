@@ -1,3 +1,4 @@
-[submodule "ensalador"]
+[submodule "bin/ensalador"]
 	path = bin/ensalador
-	url = git@gitlab.c3sl.ufpr.br:ensalamento/ensalador.git
+	url = https://gitlab.c3sl.ufpr.br/ensalamento/ensalador.git
+	branch = development
