@@ -1,4 +1,4 @@
-FROM node:8.12-jessie
+FROM node:8.12-stretch
 LABEL maintainer="horstmannmat <mch15@inf.ufpr.br>"
 
 # Set an environment variable to prevent debian warning.
