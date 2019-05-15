@@ -23,6 +23,7 @@ services:
         - ./common/:/app/common/
         - ./server/:/app/server/
         - ./src/:/app/src/
+        - ./sie-report/:/app/sie-report/
         - ./client/:/app/client/
       ports:
         - '3000:3000'
