@@ -7,6 +7,6 @@
     "name": "container",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "tmp"
+    "root": "sie-report"
   }
 }
