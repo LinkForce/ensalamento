@@ -31,6 +31,21 @@
       "type": "belongsTo",
       "model": "Disciplina",
       "foreignKey": "disciplinaCod"
+    },
+    "semestre": {
+      "type": "belongsTo",
+      "model": "Semestre",
+      "foreignKey": "semestre"
+    },
+    "professor": {
+      "type": "belongsTo",
+      "model": "Professor",
+      "foreignKey": "professorCod"
+    },
+    "cursos": {
+      "type": "belongsTo",
+      "model": "Curso",
+      "foreignKey": "cursoCod"
     }
   },
   "acls": [
@@ -59,5 +74,31 @@
       "property": "*"
     }
   ],
-  "methods": {}
+  "methods": {
+    "juntar": {
+      "accepts": [
+        {
+          "arg": "turmas",
+          "type": "array",
+          "required": true,
+          "description": "lista de turmas a serem unidas"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "status",
+          "type": "object",
+          "root": false,
+          "description": "status da união"
+        }
+      ],
+      "description": "junta turmas",
+      "http": [
+        {
+          "path": "/merge",
+          "verb": "post"
+        }
+      ]
+    }
+  }
 }

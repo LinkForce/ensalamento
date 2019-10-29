@@ -15,6 +15,32 @@ module.exports = function(Disciplina) {
     });
 
   };
+    /**
+ * pesquisa por uma disciplina, retorna turmas
+ * @param {string} query palavra chave para a pesquisa
+ * @param {Function(Error, array)} callback
+ */
+
+Disciplina.search = async function(query) {
+    var _query = {ilike:"%"+query+"%"}
+    var disciplinas = await app.models.Disciplina.find({where: {or: [{nome: _query}, {codigo: _query}]}});
+    var turmas = [];
+    for (var i=0; i< disciplinas.length; i++) {
+        var disciplina = disciplinas[i]
+        var t = await disciplina.turmas.find();
+        for (var j=0; j< t.length; j++) {
+            var horarios = await t[j].horarios.find();
+            var professor = await t[j].professor.get()
+            turmas.push({"turma":t[j],
+                "horarios":horarios,
+                "professor":professor,
+                "disciplina":disciplina}
+            );
+        }
+    }
+    return turmas
+};
+
 
   Disciplina.prototype.getEquivalencias = function(cb) {
     var Eq = app.models.Equivalenciadisciplina;

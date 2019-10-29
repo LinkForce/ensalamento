@@ -25,10 +25,15 @@ var models = [
     'Curso',
     "CursoDisciplina",
     "Professor",
-    "ProfessorTurma",
     "Horario",
+    "Semestre",
     "Ensalamento",
     "EventoHorario",
+    "FileUpload",
+    "FileUploadError",
+    "FileUploadFileUploadError",
+    "TurmaHorario",
+
 ];
 
 /**

@@ -19,14 +19,14 @@ services:
           POSTGRES_PASSWORD: ${ENSALAMENTO_DB_PASSWORD}
           NODE_ENV: ${ENSALAMENTO_NODE_ENV}
       volumes:
+        - ./sie-report:/app/sie-report/
         - ./bin/:/app/bin/
         - ./common/:/app/common/
         - ./server/:/app/server/
         - ./src/:/app/src/
-        - ./sie-report/:/app/sie-report/
         - ./client/:/app/client/
       ports:
-        - '3000:3000'
+        - '8000:8000'
       depends_on:
         - ensalamento-postgres
       networks:
