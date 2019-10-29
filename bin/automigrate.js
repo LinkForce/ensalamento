@@ -13,8 +13,8 @@ var lbTables = models.models;
 var LOG_CREATE = false;
 
 ds.automigrate(lbTables, function(err) {
-  if (err) throw err;
-  async.waterfall([
+    if (err) throw err;
+    async.waterfall([
     loadModelFromOldDB(old_db.get_salas, app.models.Sala, LOG_CREATE),
     loadModelFromOldDB(old_db.get_blocos, app.models.Bloco, LOG_CREATE),
     criaUsuario,
@@ -24,6 +24,7 @@ ds.automigrate(lbTables, function(err) {
     criaRecursodesala,
     criaTipodesala,
     criaEnsalamento,
+    criaSemestre,
     criaTurmas,
     criaHorarios,
     loadModelFromOldDB(old_db.get_professores, app.models.Professor, LOG_CREATE),
@@ -32,13 +33,13 @@ ds.automigrate(lbTables, function(err) {
     loadModelFromOldDB(old_db.get_disciplinas, app.models.Disciplina, LOG_CREATE),
     loadModelFromOldDB(old_db.get_equivalenciasDisciplinas, app.models.Equivalenciadisciplina, LOG_CREATE),
     loadModelFromOldDB(old_db.get_cursos, app.models.Curso, LOG_CREATE),
-    
+
     loadRelationsFromOldDB(old_db.get_cursoDisciplina, app.models.Curso, "disciplinas", LOG_CREATE),
   ],
     function(err) {
     if (err) throw err;
     ds.disconnect();
-  })
+    })
 });
 
 
@@ -106,22 +107,32 @@ function loadRelationsFromOldDB(oldDataAccess, model, modelRelationName, create_
   }
 }
 
+function criaSemestre(cb) {
+    app.models.Semestre.create({"semestre":"2017/1"},(err,obj)=>{
+        cb(err);
+    });
+}
+
 function criaTurmas(cb){
   app.models.Turma.create([
   {
-    "disciplinaCod":"CI055",
+    "disciplinaCod":"ci055",
     "data_inicio":"2019-02-26T13:58:50.150Z",
     "data_fim":"2019-02-26T13:58:50.150Z",
+    "semestre": "2017/1",
     "codigo": "t1",
     "organizador":"a",
+    "departamentoCod":"informatica",
     "vagas":49,
     "ano":2019,
     "periodo": 1
   },
   {
-    "disciplinaCod":"CI055",
+    "disciplinaCod":"ci055",
     "data_inicio":"2019-02-26T13:58:50.150Z",
+    "departamentoCod":"informatica",
     "data_fim":"2019-02-26T13:58:50.150Z",
+    "semestre": "2018/1",
     "codigo": "t2",
     "organizador":"a",
     "vagas":49,
@@ -129,23 +140,27 @@ function criaTurmas(cb){
     "periodo": 1
   },
   {
-    "disciplinaCod":"CI055",
+    "disciplinaCod":"ci055",
     "data_inicio":"2019-02-26T13:58:50.150Z",
+    "semestre": "2018/1",
     "data_fim":"2019-02-26T13:58:50.150Z",
     "codigo": "t3",
     "organizador":"a",
+    "departamentoCod":"informatica",
     "vagas":49,
     "ano":2019,
     "periodo": 1
   },
   {
-    "disciplinaCod":"CI055",
+    "disciplinaCod":"ci055",
     "data_inicio":"2019-02-26T13:58:50.150Z",
     "data_fim":"2019-02-26T13:58:50.150Z",
+    "semestre": "2018/1",
     "codigo": "t4",
     "organizador":"a",
     "vagas":49,
     "ano":2019,
+    "departamentoCod":"informatica",
     "periodo": 1
   },
   ], function(err, turmas){

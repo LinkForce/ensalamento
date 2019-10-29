@@ -12,11 +12,11 @@
       "required": true
     },
     "horario_inicial": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "horario_final": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "livre": {

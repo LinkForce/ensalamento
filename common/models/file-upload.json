@@ -7,15 +7,20 @@
     "validateUpsert": true
   },
   "properties": {
-    "id": {
-      "type": "number"
-    },
     "date": {
       "type": "date",
       "required": true,
       "defaultFn": "now"
     },
-    "fileType": {
+    "letive_init": {
+      "type": "date",
+      "required": true
+    },
+    "letive_end": {
+      "type": "date",
+      "required": true
+    },
+    "container_name": {
       "type": "string",
       "required": true
     },
@@ -26,9 +31,13 @@
   "validations": [],
   "relations": {
     "errors": {
-      "type": "hasMany",
-      "model": "FileUploadError",
-      "foreignKey": "fileUploadId"
+      "type": "hasAndBelongsToMany",
+      "model": "FileUploadError"
+    },
+    "semestre": {
+      "type": "belongsTo",
+      "model": "Semestre",
+      "foreignKey": "semestre"
     }
   },
   "acls": [],

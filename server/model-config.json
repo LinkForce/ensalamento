@@ -30,7 +30,7 @@
   },
   "Role": {
     "dataSource": "ensalamento",
-    "public": false
+    "public": true
   },
   "Sala": {
     "dataSource": "ensalamento",
@@ -101,15 +101,19 @@
     "public": true
   },
   "FileUpload": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": true
   },
   "FileUploadError": {
-    "dataSource": "db",
+    "dataSource": "ensalamento",
     "public": true
   },
   "container": {
     "dataSource": "container",
+    "public": true
+  },
+  "Semestre": {
+    "dataSource": "ensalamento",
     "public": true
   }
 }

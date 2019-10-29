@@ -35,8 +35,9 @@
       "foreignKey": "departamentoCod"
     },
     "turmas": {
-      "type": "hasAndBelongsToMany",
-      "model": "Turma"
+      "type": "hasMany",
+      "model": "Turma",
+      "foreignKey": "turmaId"
     }
   },
   "acls": [

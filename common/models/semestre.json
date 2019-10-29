@@ -1,0 +1,38 @@
+{
+  "name": "Semestre",
+  "plural": "semestres",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "semestre": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "length": 64,
+      "precision": null,
+      "scale": null
+    },
+    "public": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "turmas": {
+      "type": "hasMany",
+      "model": "Turma",
+      "foreignKey": "semestre"
+    },
+    "fileUploads": {
+      "type": "hasOne",
+      "model": "FileUpload",
+      "foreignKey": "fileuploadId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

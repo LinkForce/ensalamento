@@ -135,6 +135,34 @@
         "verb": "delete",
         "path": "/equivalencias"
       }
+    },
+    "search": {
+      "accepts": [
+        {
+          "arg": "query",
+          "type": "string",
+          "required": true,
+          "description": "palavra chave para a pesquisa",
+          "http": {
+            "source": "query"
+          }
+        }
+      ],
+      "returns": [
+        {
+          "arg": "turmas",
+          "type": "array",
+          "root": false,
+          "description": "lista de turmas da disciplina"
+        }
+      ],
+      "description": "pesquisa por uma disciplina, retorna turmas",
+      "http": [
+        {
+          "path": "/search",
+          "verb": "post"
+        }
+      ]
     }
   }
 }

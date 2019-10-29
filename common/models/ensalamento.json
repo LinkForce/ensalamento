@@ -52,6 +52,63 @@
         "verb": "post",
         "path": "/ensalar"
       }
+    },
+    "upload": {
+      "accepts": [
+        {
+          "arg": "req",
+          "type": "object",
+          "http": {
+            "source": "req"
+          }
+        },
+        {
+          "arg": "res",
+          "type": "object",
+          "http": {
+            "source": "res"
+          }
+        },
+        {
+          "arg": "semester",
+          "type": "string",
+          "required": false,
+          "description": "semestre label"
+        },
+        {
+          "arg": "letiveInit",
+          "type": "date",
+          "required": false,
+          "description": "MM/DD/AAAA inicio do periodo letivo."
+        },
+        {
+          "arg": "letiveEnd",
+          "type": "date",
+          "required": false,
+          "description": "MM/DD/AAAA fim do periodo letivo"
+        },
+        {
+          "arg": "delimiter",
+          "type": "string",
+          "required": false,
+          "description": "separador de campos do csv"
+        }
+      ],
+      "returns": [
+        {
+          "arg": "status",
+          "type": "object",
+          "root": false,
+          "description": "status do upload"
+        }
+      ],
+      "description": "upload planilha do sie",
+      "http": [
+        {
+          "path": "/upload",
+          "verb": "post"
+        }
+      ]
     }
   }
 }
