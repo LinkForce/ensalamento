@@ -9,7 +9,7 @@
   "properties": {
     "codigo": {
       "type": "string",
-      "id": true,
+      
       "required": true
     },
     "nome": {
@@ -22,8 +22,9 @@
     "email": {
       "type": "string"
     },
-    "_id": {
+    "id": {
       "type": "number",
+      "id": true,
       "generated": true
     }
   },
@@ -38,7 +39,13 @@
       "type": "hasMany",
       "model": "Turma",
       "foreignKey": "turmaId"
+    },
+    "avisos":{
+	"type": "hasMany",
+	"model": "Aviso",
+	"polymorphic": "autor"
     }
+
   },
   "acls": [
     {

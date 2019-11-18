@@ -46,6 +46,11 @@
       "type": "belongsTo",
       "model": "Curso",
       "foreignKey": "cursoCod"
+    },
+    "avisos": {
+      "type": "hasMany",
+      "model": "Aviso",
+      "foreignKey": ""
     }
   },
   "acls": [

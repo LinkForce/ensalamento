@@ -23,13 +23,14 @@
     "loopback-component-explorer": "^6.3.1",
     "loopback-component-storage": "^3.6.0",
     "loopback-connector-postgresql": "^3.5.0",
+    "loopback-connector-sqlite3": "^3.0.0",
     "serve-favicon": "^2.5.0",
     "strong-error-handler": "^3.2.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
     "eslint-config-loopback": "^8.0.0",
-    "loopback-cli": "3.1.0"
+    "loopback-cli": "^3.1.0"
   },
   "repository": {
     "type": "",
