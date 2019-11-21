@@ -23,7 +23,11 @@
       "type": "boolean",
       "required": true,
       "default": true
-    }
+    },
+    "autorId": {
+      "type": "string",
+      "required": "true"
+    }  
   },
   "validations": [],
   "relations": {
@@ -45,7 +49,8 @@
     "autor": {
     	"type":"belongsTo",
 	"polymorphic": true,
-	"idType":"string"
+	"idType":"string",
+	"foreignKey":"autorId"
     }
   },
   "acls": [],
