@@ -1,3 +1,12 @@
+# Trabalho 2 - CI1163
+
+Observações:
+* No diagrama UML utilizou-se uma linha reta e uma *label* denotando a relação polimórfica - que não pertence ao UML originalmente.
+* Implementou-se apenas uma classe para o mural, pois concluímos que os filtros mais desejados poderiam ser implementados utilizando os parâmetros envolvidos em pegar um ou vários avisos. Por exemplo: caso a intenção fosse ilustrar os avisos de uma turma específica, pode-se filtrar passando o ID da turma.
+---
+
+Readme original:
+
 # Ensalamento-back
 
 ## Getting Started
